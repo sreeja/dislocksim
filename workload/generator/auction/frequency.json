@@ -1,0 +1,63 @@
+[
+  {
+    "config":1,
+    "distribution":[
+      {
+        "name":"registerseller",
+        "frequency":[5, 5, 5, 5, 5]
+      },
+      {
+        "name":"unregisterseller",
+        "frequency":[1, 1, 1, 1, 1]
+      },
+      {
+        "name":"registerbuyer",
+        "frequency":[1000, 1000, 1000, 1000, 1000]
+      },
+      {
+        "name":"unregisterbuyer",
+        "frequency":[2, 2, 2, 2, 2]
+      },
+      {
+        "name":"addproduct",
+        "frequency":[2000, 2000, 2000, 2000, 2000]
+      },
+      {
+        "name":"removeproduct",
+        "frequency":[2, 2, 2, 2, 2]
+      },
+      {
+        "name":"createauction",
+        "frequency":[5000, 5000, 5000, 5000, 5000]
+      },
+      {
+        "name":"addtolot",
+        "frequency":[6000, 6000, 6000, 6000, 6000]
+      },
+      {
+        "name":"removefromlot",
+        "frequency":[1, 1, 1, 1, 1]
+      },
+      {
+        "name":"startauction",
+        "frequency":[4998, 4998, 4998, 4998, 4998]
+      },
+      {
+        "name":"removeauction",
+        "frequency":[2, 2, 2, 2, 2]
+      },
+      {
+        "name":"placebid",
+        "frequency":[50000, 50000, 50000, 50000, 50000]
+      },
+      {
+        "name":"removebid",
+        "frequency":[5, 5, 5, 5, 5]
+      },
+      {
+        "name":"closeauction",
+        "frequency":[4998, 4998, 4998, 4998, 4998]
+      }
+    ]
+  }
+]

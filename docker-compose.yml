@@ -1,0 +1,179 @@
+version: '3.4'
+
+services:
+
+  zookeeper:
+    image: zookeeper
+    restart: always
+    hostname: zoo1
+    ports:
+      - 2181:2181
+
+  locker-paris:
+    build:
+      context: ./lockService
+      dockerfile: Dockerfile
+    volumes:
+      - "./lockService:/usr/src/app"
+    environment:
+      - WHOAMI=locker-paris
+    depends_on:
+      - zookeeper
+    links:
+      - zookeeper
+    ports:
+      - 6101:6101
+    command: go run locker.go
+
+  locker-tokyo:
+    build:
+      context: ./lockService
+      dockerfile: Dockerfile
+    volumes:
+      - "./lockService:/usr/src/app"
+      - "./data/tokyo:/usr/data"
+    environment:
+      - WHOAMI=locker-tokyo
+    depends_on:
+      - zookeeper
+    links:
+      - zookeeper
+    ports:
+      - 6102:6102
+    command: go run locker.go
+
+  locker-singapore:
+    build:
+      context: ./lockService
+      dockerfile: Dockerfile
+    volumes:
+      - "./lockService:/usr/src/app"
+      - "./data/singapore:/usr/data"
+    environment:
+      - WHOAMI=locker-singapore
+    depends_on:
+      - zookeeper
+    links:
+      - zookeeper
+    ports:
+      - 6103:6103
+    command: go run locker.go
+
+  locker-capetown:
+    build:
+      context: ./lockService
+      dockerfile: Dockerfile
+    volumes:
+      - "./lockService:/usr/src/app"
+      - "./data/capetown:/usr/data"
+    environment:
+      - WHOAMI=locker-capetown
+    depends_on:
+      - zookeeper
+    links:
+      - zookeeper
+    ports:
+      - 6104:6104
+    command: go run locker.go
+
+  locker-newyork:
+    build:
+      context: ./lockService
+      dockerfile: Dockerfile
+    volumes:
+      - "./lockService:/usr/src/app"
+      - "./data/newyork:/usr/data"
+    environment:
+      - WHOAMI=locker-newyork
+    depends_on:
+      - zookeeper
+    links:
+      - zookeeper
+    ports:
+      - 6105:6105
+    command: go run locker.go
+
+  paris:
+    build:
+      context: ./application
+      dockerfile: Dockerfile
+    volumes:
+      - "./application:/usr/src/app"
+      - "./data/paris:/usr/data"
+    environment:
+      - WHOAMI=paris
+    depends_on:
+      - locker-paris
+    links:
+      - locker-paris
+    ports:
+      - 6001:6000
+    command: go run app.go
+
+  tokyo:
+    build:
+      context: ./application
+      dockerfile: Dockerfile
+    volumes:
+      - "./application:/usr/src/app"
+      - "./data/tokyo:/usr/data"
+    environment:
+      - WHOAMI=tokyo
+    depends_on:
+      - locker-tokyo
+    links:
+      - locker-tokyo
+    ports:
+      - 6002:6000
+    command: go run app.go
+
+  singapore:
+    build:
+      context: ./application
+      dockerfile: Dockerfile
+    volumes:
+      - "./application:/usr/src/app"
+      - "./data/singapore:/usr/data"
+    environment:
+      - WHOAMI=singapore
+    depends_on:
+      - locker-singapore
+    links:
+      - locker-singapore
+    ports:
+      - 6003:6000
+    command: go run app.go
+
+  capetown:
+    build:
+      context: ./application
+      dockerfile: Dockerfile
+    volumes:
+      - "./application:/usr/src/app"
+      - "./data/capetown:/usr/data"
+    environment:
+      - WHOAMI=capetown
+    depends_on:
+      - locker-capetown
+    links:
+      - locker-capetown
+    ports:
+      - 6004:6000
+    command: go run app.go
+
+  newyork:
+    build:
+      context: ./application
+      dockerfile: Dockerfile
+    volumes:
+      - "./application:/usr/src/app"
+      - "./data/newyork:/usr/data"
+    environment:
+      - WHOAMI=newyork
+    depends_on:
+      - locker-newyork
+    links:
+      - locker-newyork
+    ports:
+      - 6005:6000
+    command: go run app.go
