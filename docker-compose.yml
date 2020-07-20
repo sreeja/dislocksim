@@ -22,7 +22,7 @@ services:
     links:
       - zookeeper
     ports:
-      - 6101:6101
+      - 4001:4000
     command: go run locker.go
 
   locker-tokyo:
@@ -39,7 +39,7 @@ services:
     links:
       - zookeeper
     ports:
-      - 6102:6102
+      - 4002:4000
     command: go run locker.go
 
   locker-singapore:
@@ -56,7 +56,7 @@ services:
     links:
       - zookeeper
     ports:
-      - 6103:6103
+      - 4003:4000
     command: go run locker.go
 
   locker-capetown:
@@ -73,7 +73,7 @@ services:
     links:
       - zookeeper
     ports:
-      - 6104:6104
+      - 4004:4000
     command: go run locker.go
 
   locker-newyork:
@@ -90,7 +90,7 @@ services:
     links:
       - zookeeper
     ports:
-      - 6105:6105
+      - 4005:4000
     command: go run locker.go
 
   paris:

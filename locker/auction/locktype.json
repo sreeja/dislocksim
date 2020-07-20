@@ -1,81 +1,61 @@
 [
   {
     "name":"closeauction_placebid",
-    "params":[
-      {"param":"auction"}
-    ],
+    "params":["auction"],
     "category":"sharedexclusive",
     "placement":"centralized"
   },
   {
     "name":"placebid_unregisterbuyer",
-    "params":[
-      {"param":"buyer"}
-    ],
+    "params":["buyer"],
     "category":"sharedexclusive",
     "placement":"centralized"
   },
   {
     "name":"closeauction_removebid",
-    "params":[
-      {"param":"auction"}
-    ],
+    "params":["auction"],
     "category":"sharedexclusive",
     "placement":"centralized"
   },
   {
     "name":"addproduct_unregisterseller",
-    "params":[
-      {"param":"seller"}
-    ],
+    "params":["seller"],
     "category":"exclusive",
     "placement":"centralized"
   },
   {
     "name":"createauction_unregisterseller",
-    "params":[
-      {"param":"seller"}
-    ],
+    "params":["seller"],
     "category":"exclusive",
     "placement":"centralized"
   },
   {
     "name":"removefromlot_startauction",
-    "params":[
-      {"param":"auction"}
-    ],
+    "params":["auction"],
     "category":"exclusive",
     "placement":"centralized"
   },
   {
     "name":"addtolot_startauction",
-    "params":[
-      {"param":"auction"}
-    ],
+    "params":["auction"],
     "category":"exclusive",
     "placement":"centralized"
   },
   {
     "name":"addtolot_addtolot",
-    "params":[
-      {"param":"auction"}
-    ],
+    "params":["auction"],
     "category":"exclusive",
     "placement":"centralized"
   },
   {
     "name":"addtolot_removeproduct",
-    "params":[
-      {"param":"auction"}
-    ],
+    "params":["auction"],
     "category":"exclusive",
     "placement":"centralized"
   },
   {
     "name":"addtolot_removeauction",
-    "params":[
-      {"param":"auction"}
-    ],
+    "params":["auction"],
     "category":"exclusive",
     "placement":"centralized"
   }
