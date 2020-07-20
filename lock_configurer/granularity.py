@@ -37,8 +37,8 @@ def isvalidcombo(combo):
   return False
 
 
-# GetCoarsenings function provides all possible coarsening options for the tokens for a specific application
-def GetCoarsenings(filename):
+# get_coarsenings function provides all possible coarsening options for the tokens for a specific application
+def get_coarsenings(filename):
   with open(filename, 'r') as f:
     tokens = json.load(f)
 
@@ -70,4 +70,4 @@ def GetCoarsenings(filename):
 # import os
 # dirname = os.path.dirname(__file__)
 # filename = os.path.join(dirname, 'auction', 'token.json')
-# GetCoarsenings(filename)
+# get_coarsenings(filename)
