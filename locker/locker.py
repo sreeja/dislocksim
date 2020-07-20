@@ -60,17 +60,29 @@ def acquire_locks(appname, opname, params):
       zklocks += [zk.ReadLock(each[0])]
     else:
       zklocks += [zk.WriteLock(each[0])]
-  # acquire all locks asynchronously
+  # TODO: acquire all locks asynchronously
+  for each in zklocks:
+    each.acquire()
   return locknames
 
 # release locks
 # release all locks
 # @dispatcher.add_method
 def release_locks(locknames):
-  # release all locks asynchronously
+  zklocks = []
+  for each in locknames:
+    if each[1] == "shared":
+      zklocks += [zk.ReadLock(each[0])]
+    else:
+      zklocks += [zk.WriteLock(each[0])]
+  # TODO: release all locks asynchronously
+  for each in zklocks:
+    each.release()
+
   return
 
 
+# TODO: rpc
 # def application(request):
 #     # Dispatcher is dictionary {<method_name>: callable}
 #     dispatcher["echo"] = lambda s: s
