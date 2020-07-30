@@ -14,6 +14,8 @@ dirname = os.path.dirname(__file__)
 zk = KazooClient(hosts='localhost:2181')
 zk.start()
 
+locklist = {}
+
 def getlocklist(opname, oplocks):
   for l in oplocks:
     if l["op"] == opname:
@@ -55,34 +57,33 @@ def get_lock_list(appname, opname, params):
 # get all the required locks asynchronously from zookeeper
 @dispatcher.add_method
 def acquire_locks(appname, opname, params):
-  print("inside acquire locks", flush=True)
+  # print("inside acquire locks", flush=True)
   locks = get_lock_list(appname, opname, params)
   locknames = sorted([(l.name, l.mode) for l in locks])
   zklocks = []
   for each in locknames:
     if each[1] == "shared":
-      zklocks += [zk.ReadLock(each[0])]
+      lock = zk.ReadLock(each[0])
     else:
-      zklocks += [zk.WriteLock(each[0])]
+      lock = zk.WriteLock(each[0])
+    zklocks += [lock]
+    locklist[each[0]+'-'+each[1]] = lock
   # TODO: acquire all locks asynchronously
   for each in zklocks:
     done = each.acquire()
     if not done:
       print(each.path + " not acquired")
-  print("all locks acquired", flush=True)
+  # print("all locks acquired", flush=True)
   return locknames
 
 # release locks
 # release all locks
 @dispatcher.add_method
 def release_locks(locknames):
-  print("inside release locks", flush=True)
+  # print("inside release locks", flush=True)
   zklocks = []
   for each in locknames:
-    if each[1] == "shared":
-      zklocks += [zk.ReadLock(each[0])]
-    else:
-      zklocks += [zk.WriteLock(each[0])]
+    zklocks += [locklist[each[0]+'-'+each[1]]]
   # TODO: release all locks asynchronously
   for each in zklocks:
     done = each.release()
@@ -90,20 +91,7 @@ def release_locks(locknames):
     if not done:
       print(each.path + " not released")
 
-  testlock = zk.Lock('test')
-  testresult = testlock.acquire()
-  if testresult:
-    print("test lock acquired", flush=True)
-    testrelock = zk.Lock('test')
-    testrel = testrelock.release()
-    if testrel:
-      print("test lock released", flush=True)
-    else:
-      print("test lock not released", flush=True)
-  else:
-    print("test lock acquired", flush=True)
-
-  print("all locks released", flush=True)
+  # print("all locks released", flush=True)
   return
 
 
