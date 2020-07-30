@@ -1,5 +1,8 @@
 # exposed through rpc
-import jsonrpc
+from jsonrpc import JSONRPCResponseManager, dispatcher
+from werkzeug.wrappers import Request, Response
+from werkzeug.serving import run_simple
+# import jsonrpc
 import json
 import os
 
@@ -50,8 +53,9 @@ def get_lock_list(appname, opname, params):
 
 # acquire locks
 # get all the required locks asynchronously from zookeeper
-# @dispatcher.add_method
+@dispatcher.add_method
 def acquire_locks(appname, opname, params):
+  print("inside acquire locks", flush=True)
   locks = get_lock_list(appname, opname, params)
   locknames = sorted([(l.name, l.mode) for l in locks])
   zklocks = []
@@ -62,13 +66,17 @@ def acquire_locks(appname, opname, params):
       zklocks += [zk.WriteLock(each[0])]
   # TODO: acquire all locks asynchronously
   for each in zklocks:
-    each.acquire()
+    done = each.acquire()
+    if not done:
+      print(each.path + " not acquired")
+  print("all locks acquired", flush=True)
   return locknames
 
 # release locks
 # release all locks
-# @dispatcher.add_method
+@dispatcher.add_method
 def release_locks(locknames):
+  print("inside release locks", flush=True)
   zklocks = []
   for each in locknames:
     if each[1] == "shared":
@@ -77,24 +85,39 @@ def release_locks(locknames):
       zklocks += [zk.WriteLock(each[0])]
   # TODO: release all locks asynchronously
   for each in zklocks:
-    each.release()
+    done = each.release()
+    print(done, flush=True)
+    if not done:
+      print(each.path + " not released")
 
+  testlock = zk.Lock('test')
+  testresult = testlock.acquire()
+  if testresult:
+    print("test lock acquired", flush=True)
+    testrelock = zk.Lock('test')
+    testrel = testrelock.release()
+    if testrel:
+      print("test lock released", flush=True)
+    else:
+      print("test lock not released", flush=True)
+  else:
+    print("test lock acquired", flush=True)
+
+  print("all locks released", flush=True)
   return
 
 
 # TODO: rpc
-# def application(request):
-#     # Dispatcher is dictionary {<method_name>: callable}
-#     dispatcher["echo"] = lambda s: s
-#     dispatcher["add"] = lambda a, b: a + b
-
-#     response = JSONRPCResponseManager.handle(
-#         request.data, dispatcher)
-#     return Response(response.json, mimetype='application/json')
+@Request.application
+def application(request):
+    # Dispatcher is dictionary {<method_name>: callable}
+    response = JSONRPCResponseManager.handle(
+        request.data, dispatcher)
+    return Response(response.json, mimetype='application/json')
 
 
-# if __name__ == '__main__':
-#     run_simple('localhost', 4000, application)
+if __name__ == '__main__':
+    run_simple('localhost', 4000, application)
 
 
-get_lock_list('auction', 'placebid', {"auction":"a12", "buyer":"b45"})
+# get_lock_list('auction', 'placebid', {"auction":"a12", "buyer":"b45"})

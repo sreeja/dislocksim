@@ -23,7 +23,7 @@ services:
       - zookeeper
     ports:
       - 4001:4000
-    command: go run locker.go
+    command: python locker.py 
 
   locker-tokyo:
     build:
@@ -40,7 +40,7 @@ services:
       - zookeeper
     ports:
       - 4002:4000
-    command: go run locker.go
+    command: python locker.py 
 
   locker-singapore:
     build:
@@ -57,7 +57,7 @@ services:
       - zookeeper
     ports:
       - 4003:4000
-    command: go run locker.go
+    command: python locker.py 
 
   locker-capetown:
     build:
@@ -74,7 +74,7 @@ services:
       - zookeeper
     ports:
       - 4004:4000
-    command: go run locker.go
+    command: python locker.py 
 
   locker-newyork:
     build:
@@ -91,7 +91,7 @@ services:
       - zookeeper
     ports:
       - 4005:4000
-    command: go run locker.go
+    command: python locker.py 
 
   paris:
     build:
@@ -108,7 +108,7 @@ services:
       - locker-paris
     ports:
       - 6001:6000
-    command: go run app.go
+    command: flask run --host=0.0.0.0 --port=6000
 
   tokyo:
     build:
@@ -125,7 +125,7 @@ services:
       - locker-tokyo
     ports:
       - 6002:6000
-    command: go run app.go
+    command: flask run --host=0.0.0.0 --port=6000
 
   singapore:
     build:
@@ -142,7 +142,7 @@ services:
       - locker-singapore
     ports:
       - 6003:6000
-    command: go run app.go
+    command: flask run --host=0.0.0.0 --port=6000
 
   capetown:
     build:
@@ -159,7 +159,7 @@ services:
       - locker-capetown
     ports:
       - 6004:6000
-    command: go run app.go
+    command: flask run --host=0.0.0.0 --port=6000
 
   newyork:
     build:
@@ -176,4 +176,4 @@ services:
       - locker-newyork
     ports:
       - 6005:6000
-    command: go run app.go
+    command: flask run --host=0.0.0.0 --port=6000
