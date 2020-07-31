@@ -11,10 +11,32 @@ from kazoo.client import KazooClient
 
 dirname = os.path.dirname(__file__)
 
+# this method not actually tested
+def my_listener(state):
+  global zk
+  global child_path
+  global child_value
+
+  if state == KazooState.LOST:
+    logger.warn("lost connection to zookeeper server")
+  elif state == KazooState.SUSPENDED:
+    logger.warn("connection has been lost but may be recovered")
+  else:
+    logger.info("connect/reconnect to zookeeper server")
+    if zk is not None and child_path is not None:
+      try:
+        if not zk.exists(child_path):
+          zk.create(child_path, child_value.encode('utf-8'), ephemeral=True)
+      except Exception as e:
+        logger.exception(e)
+
 zk = KazooClient(hosts='localhost:2181')
 zk.start()
 
+zk.add_listener(my_listener)
+
 locklist = {}
+
 
 def getlocklist(opname, oplocks):
   for l in oplocks:
@@ -87,7 +109,7 @@ def release_locks(locknames):
   # TODO: release all locks asynchronously
   for each in zklocks:
     done = each.release()
-    print(done, flush=True)
+    # print(done, flush=True)
     if not done:
       print(each.path + " not released")
 
