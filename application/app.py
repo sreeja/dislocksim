@@ -42,7 +42,8 @@ def do():
 
   print(app, op, params, flush=True)
 
-  url = "http://localhost:4000/jsonrpc"
+  # TODO: fix this, each replica application should talk only to its own lock manager
+  url = "http://localhost:4000/jsonrpc" 
   # ACQUIRE REQUIRED LOCKS
   payload = {
         "method": "acquire_locks",
