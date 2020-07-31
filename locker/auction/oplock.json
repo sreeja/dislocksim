@@ -69,7 +69,7 @@
       },
       {
         "name":"createauction_unregisterseller",
-        "mode":"mutex"
+        "mode":"exclusive"
       }
     ]
   },
