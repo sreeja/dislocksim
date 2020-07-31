@@ -11,10 +11,10 @@ services:
 
   locker-paris:
     build:
-      context: ./lockService
+      context: ./locker
       dockerfile: Dockerfile
     volumes:
-      - "./lockService:/usr/src/app"
+      - "./locker:/usr/src/app"
     environment:
       - WHOAMI=locker-paris
     depends_on:
@@ -22,15 +22,15 @@ services:
     links:
       - zookeeper
     ports:
-      - 4001:4000
+      - 4001:4001
     command: python locker.py 
 
   locker-tokyo:
     build:
-      context: ./lockService
+      context: ./locker
       dockerfile: Dockerfile
     volumes:
-      - "./lockService:/usr/src/app"
+      - "./locker:/usr/src/app"
       - "./data/tokyo:/usr/data"
     environment:
       - WHOAMI=locker-tokyo
@@ -39,15 +39,15 @@ services:
     links:
       - zookeeper
     ports:
-      - 4002:4000
+      - 4002:4002
     command: python locker.py 
 
   locker-singapore:
     build:
-      context: ./lockService
+      context: ./locker
       dockerfile: Dockerfile
     volumes:
-      - "./lockService:/usr/src/app"
+      - "./locker:/usr/src/app"
       - "./data/singapore:/usr/data"
     environment:
       - WHOAMI=locker-singapore
@@ -56,15 +56,15 @@ services:
     links:
       - zookeeper
     ports:
-      - 4003:4000
+      - 4003:4003
     command: python locker.py 
 
   locker-capetown:
     build:
-      context: ./lockService
+      context: ./locker
       dockerfile: Dockerfile
     volumes:
-      - "./lockService:/usr/src/app"
+      - "./locker:/usr/src/app"
       - "./data/capetown:/usr/data"
     environment:
       - WHOAMI=locker-capetown
@@ -73,15 +73,15 @@ services:
     links:
       - zookeeper
     ports:
-      - 4004:4000
+      - 4004:4004
     command: python locker.py 
 
   locker-newyork:
     build:
-      context: ./lockService
+      context: ./locker
       dockerfile: Dockerfile
     volumes:
-      - "./lockService:/usr/src/app"
+      - "./locker:/usr/src/app"
       - "./data/newyork:/usr/data"
     environment:
       - WHOAMI=locker-newyork
@@ -90,7 +90,7 @@ services:
     links:
       - zookeeper
     ports:
-      - 4005:4000
+      - 4005:4005
     command: python locker.py 
 
   paris:

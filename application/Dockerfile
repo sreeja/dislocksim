@@ -1,4 +1,4 @@
-FROM python:3.7.1 as dev
+FROM python:3.8.4 as dev
 
 RUN mkdir -p /usr/src/app
 RUN mkdir -p /usr/data

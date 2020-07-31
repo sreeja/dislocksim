@@ -43,7 +43,8 @@ def do():
   print(app, op, params, flush=True)
 
   # TODO: fix this, each replica application should talk only to its own lock manager
-  url = "http://localhost:4000/jsonrpc" 
+  url = "http://locker-"+whoami+":400"+str(replicas.index(whoami)+1)+"/jsonrpc" 
+  print("rpc request to " + url, flush=True)
   # ACQUIRE REQUIRED LOCKS
   payload = {
         "method": "acquire_locks",

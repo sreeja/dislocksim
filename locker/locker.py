@@ -10,6 +10,8 @@ from Lock import LockType, Lock
 from kazoo.client import KazooClient
 
 dirname = os.path.dirname(__file__)
+whoami = os.environ.get("WHOAMI")
+replicas = ["paris", "tokyo", "singapore", "capetown", "newyork"]
 
 # this method not actually tested
 def my_listener(state):
@@ -30,7 +32,7 @@ def my_listener(state):
       except Exception as e:
         logger.exception(e)
 
-zk = KazooClient(hosts='localhost:2181')
+zk = KazooClient(hosts='zookeeper:2181')
 zk.start()
 
 zk.add_listener(my_listener)
@@ -79,7 +81,7 @@ def get_lock_list(appname, opname, params):
 # get all the required locks asynchronously from zookeeper
 @dispatcher.add_method
 def acquire_locks(appname, opname, params):
-  # print("inside acquire locks", flush=True)
+  print("inside acquire locks", flush=True)
   locks = get_lock_list(appname, opname, params)
   locknames = sorted([(l.name, l.mode) for l in locks])
   zklocks = []
@@ -127,7 +129,7 @@ def application(request):
 
 
 if __name__ == '__main__':
-    run_simple('localhost', 4000, application)
+    run_simple(whoami, 4001 + replicas.index(whoami[whoami.index('-')+1:]), application)
 
 
 # get_lock_list('auction', 'placebid', {"auction":"a12", "buyer":"b45"})
