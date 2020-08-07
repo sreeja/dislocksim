@@ -20,6 +20,7 @@ def get_exec_time(appname):
     exectime[each["name"]] = each["time"]
   return exectime
 
+time.sleep(15)
 app = create_app()
 
 whoami = os.environ.get("WHOAMI")

@@ -5,6 +5,7 @@ from werkzeug.serving import run_simple
 # import jsonrpc
 import json
 import os
+import time
 
 from Lock import LockType, Lock
 from kazoo.client import KazooClient
@@ -32,6 +33,7 @@ def my_listener(state):
       except Exception as e:
         logger.exception(e)
 
+time.sleep(30) # for zookeeper to startup
 zk = KazooClient(hosts='zookeeper:2181')
 zk.start()
 
