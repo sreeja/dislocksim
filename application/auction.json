@@ -7,6 +7,7 @@
     "name":"registerbuyer",
     "time":1
   },
+
   {
     "name":"unregisterbuyer",
     "time":0.5
@@ -23,6 +24,7 @@
     "name":"removebid",
     "time":0.5
   },
+
   {
     "name":"addproduct",
     "time":1
@@ -35,6 +37,7 @@
     "name":"createauction",
     "time":1
   },
+  
   {
     "name":"removefromlot",
     "time":0.5
