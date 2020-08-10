@@ -26,30 +26,13 @@ app = create_app()
 whoami = os.environ.get("WHOAMI")
 replicas = ["paris", "tokyo", "singapore", "capetown", "newyork"]
 
-@app.route('/')
-def hello_world():
-  return f'Hello world from {whoami} \n'
-
-@app.route('/do')
-def do():
-  app = request.args.get('app', '')
-  op = request.args.get('op', '')
-  paramstring = request.args.get('params', '')
-
-  params = {}
-  for each in paramstring.split(","):
-    kv = each.split("-")
-    params[kv[0]] = kv[1]
-
-  print(app, op, params, flush=True)
-
-  # TODO: fix this, each replica application should talk only to its own lock manager
+def execute(appname, opname, params):
   url = "http://locker-"+whoami+":400"+str(replicas.index(whoami)+1)+"/jsonrpc" 
-  print("rpc request to " + url, flush=True)
+  print("locking rpc request to " + url, flush=True)
   # ACQUIRE REQUIRED LOCKS
   payload = {
         "method": "acquire_locks",
-        "params": [app, op, params],
+        "params": [appname, opname, params],
         "jsonrpc": "2.0",
         "id": 0,
     }
@@ -58,9 +41,9 @@ def do():
   print(response, flush=True)
   print("locks acquired", flush=True)
   # sleep the execution time
-  exectime = get_exec_time(app)
-  # print(exectime[op])
-  time.sleep(exectime[op])
+  exectime = get_exec_time(appname)
+  # print(exectime[opname])
+  time.sleep(exectime[opname] * 0.001)
 
   # release locks
   payload = {
@@ -72,5 +55,76 @@ def do():
   response = requests.post(url, json=payload).json()
 
   print("locks released", flush=True)
+
+
+@app.route('/')
+def hello_world():
+  return f'Hello world from {whoami} \n'
+
+@app.route('/do', methods=['GET'])
+def do_get():
+  app = request.args.get('app', '')
+  op = request.args.get('op', '')
+  paramstring = request.args.get('params', '')
+
+  params = {}
+  for each in paramstring.split(","):
+    kv = each.split("-")
+    params[kv[0]] = kv[1]
+
+  print(app, op, params, flush=True)
+
+  execute(app, op, params)
+  
+  return "done"
+
+@app.route('/do', methods=['PUT'])
+def do_put():
+  app = request.args.get('app', '')
+  op = request.args.get('op', '')
+  paramstring = request.args.get('params', '')
+
+  params = {}
+  for each in paramstring.split(","):
+    kv = each.split("-")
+    params[kv[0]] = kv[1]
+
+  print(app, op, params, flush=True)
+
+  execute(app, op, params)
+  
+  return "done"
+
+@app.route('/do', methods=['DELETE'])
+def do_delete():
+  app = request.args.get('app', '')
+  op = request.args.get('op', '')
+  paramstring = request.args.get('params', '')
+
+  params = {}
+  for each in paramstring.split(","):
+    kv = each.split("-")
+    params[kv[0]] = kv[1]
+
+  print(app, op, params, flush=True)
+
+  execute(app, op, params)
+  
+  return "done"
+
+@app.route('/do', methods=['POST'])
+def do_post():
+  app = request.args.get('app', '')
+  op = request.args.get('op', '')
+  paramstring = request.args.get('params', '')
+
+  params = {}
+  for each in paramstring.split(","):
+    kv = each.split("-")
+    params[kv[0]] = kv[1]
+
+  print(app, op, params, flush=True)
+
+  execute(app, op, params)
   
   return "done"

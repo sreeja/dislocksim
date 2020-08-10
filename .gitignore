@@ -145,3 +145,5 @@ dmypy.json
 bin/*
 *.cfg
 exp-env/*
+
+workload/ycsb-0.17.0/*

@@ -8,7 +8,7 @@ import os
 import time
 
 from Lock import LockType, Lock
-from kazoo.client import KazooClient
+from kazoo.client import KazooClient, KazooState
 
 dirname = os.path.dirname(__file__)
 whoami = os.environ.get("WHOAMI")
