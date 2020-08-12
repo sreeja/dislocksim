@@ -17,6 +17,7 @@ services:
       - "./locker:/usr/src/app"
     environment:
       - WHOAMI=locker-paris
+      - APP=${APP}
     depends_on:
       - zookeeper
     links:
@@ -34,6 +35,7 @@ services:
       - "./data/tokyo:/usr/data"
     environment:
       - WHOAMI=locker-tokyo
+      - APP=${APP}
     depends_on:
       - zookeeper
     links:
@@ -51,6 +53,7 @@ services:
       - "./data/singapore:/usr/data"
     environment:
       - WHOAMI=locker-singapore
+      - APP=${APP}
     depends_on:
       - zookeeper
     links:
@@ -68,6 +71,7 @@ services:
       - "./data/capetown:/usr/data"
     environment:
       - WHOAMI=locker-capetown
+      - APP=${APP}
     depends_on:
       - zookeeper
     links:
@@ -85,6 +89,7 @@ services:
       - "./data/newyork:/usr/data"
     environment:
       - WHOAMI=locker-newyork
+      - APP=${APP}
     depends_on:
       - zookeeper
     links:
@@ -102,6 +107,7 @@ services:
       - "./data/paris:/usr/data"
     environment:
       - WHOAMI=paris
+      - APP=${APP}
     depends_on:
       - locker-paris
     links:
@@ -119,6 +125,7 @@ services:
       - "./data/tokyo:/usr/data"
     environment:
       - WHOAMI=tokyo
+      - APP=${APP}
     depends_on:
       - locker-tokyo
     links:
@@ -136,6 +143,7 @@ services:
       - "./data/singapore:/usr/data"
     environment:
       - WHOAMI=singapore
+      - APP=${APP}
     depends_on:
       - locker-singapore
     links:
@@ -153,6 +161,7 @@ services:
       - "./data/capetown:/usr/data"
     environment:
       - WHOAMI=capetown
+      - APP=${APP}
     depends_on:
       - locker-capetown
     links:
@@ -170,6 +179,7 @@ services:
       - "./data/newyork:/usr/data"
     environment:
       - WHOAMI=newyork
+      - APP=${APP}
     depends_on:
       - locker-newyork
     links:

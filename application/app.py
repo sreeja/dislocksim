@@ -4,9 +4,10 @@ import time
 import requests
 import json
 
+
 def create_app():
-  app = Flask(__name__)
-  return app
+  flapp = Flask(__name__)
+  return flapp
 
 def get_exec_time(appname):
   dirname = os.path.dirname(__file__)
@@ -21,18 +22,21 @@ def get_exec_time(appname):
   return exectime
 
 time.sleep(15)
-app = create_app()
+flapp = create_app()
 
 whoami = os.environ.get("WHOAMI")
 replicas = ["paris", "tokyo", "singapore", "capetown", "newyork"]
 
-def execute(appname, opname, params):
+exp_app = os.environ.get("APP")
+exectime = get_exec_time(exp_app)
+
+def execute(opname, params):
   url = "http://locker-"+whoami+":400"+str(replicas.index(whoami)+1)+"/jsonrpc" 
   print("locking rpc request to " + url, flush=True)
   # ACQUIRE REQUIRED LOCKS
   payload = {
         "method": "acquire_locks",
-        "params": [appname, opname, params],
+        "params": [opname, params],
         "jsonrpc": "2.0",
         "id": 0,
     }
@@ -41,7 +45,6 @@ def execute(appname, opname, params):
   print(response, flush=True)
   print("locks acquired", flush=True)
   # sleep the execution time
-  exectime = get_exec_time(appname)
   # print(exectime[opname])
   time.sleep(exectime[opname] * 0.001)
 
@@ -57,13 +60,12 @@ def execute(appname, opname, params):
   print("locks released", flush=True)
 
 
-@app.route('/')
+@flapp.route('/')
 def hello_world():
   return f'Hello world from {whoami} \n'
 
-@app.route('/do', methods=['GET'])
+@flapp.route('/do', methods=['GET'])
 def do_get():
-  app = request.args.get('app', '')
   op = request.args.get('op', '')
   paramstring = request.args.get('params', '')
 
@@ -72,15 +74,14 @@ def do_get():
     kv = each.split("-")
     params[kv[0]] = kv[1]
 
-  print(app, op, params, flush=True)
+  print(op, params, flush=True)
 
-  execute(app, op, params)
+  execute(op, params)
   
   return "done"
 
-@app.route('/do', methods=['PUT'])
+@flapp.route('/do', methods=['PUT'])
 def do_put():
-  app = request.args.get('app', '')
   op = request.args.get('op', '')
   paramstring = request.args.get('params', '')
 
@@ -89,15 +90,14 @@ def do_put():
     kv = each.split("-")
     params[kv[0]] = kv[1]
 
-  print(app, op, params, flush=True)
+  print(op, params, flush=True)
 
-  execute(app, op, params)
+  execute(op, params)
   
   return "done"
 
-@app.route('/do', methods=['DELETE'])
+@flapp.route('/do', methods=['DELETE'])
 def do_delete():
-  app = request.args.get('app', '')
   op = request.args.get('op', '')
   paramstring = request.args.get('params', '')
 
@@ -106,15 +106,14 @@ def do_delete():
     kv = each.split("-")
     params[kv[0]] = kv[1]
 
-  print(app, op, params, flush=True)
+  print(op, params, flush=True)
 
-  execute(app, op, params)
+  execute(op, params)
   
   return "done"
 
-@app.route('/do', methods=['POST'])
+@flapp.route('/do', methods=['POST'])
 def do_post():
-  app = request.args.get('app', '')
   op = request.args.get('op', '')
   paramstring = request.args.get('params', '')
 
@@ -123,8 +122,8 @@ def do_post():
     kv = each.split("-")
     params[kv[0]] = kv[1]
 
-  print(app, op, params, flush=True)
+  print(op, params, flush=True)
 
-  execute(app, op, params)
+  execute(op, params)
   
   return "done"

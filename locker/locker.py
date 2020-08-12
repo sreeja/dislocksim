@@ -10,9 +10,10 @@ import time
 from Lock import LockType, Lock
 from kazoo.client import KazooClient, KazooState
 
-dirname = os.path.dirname(__file__)
 whoami = os.environ.get("WHOAMI")
 replicas = ["paris", "tokyo", "singapore", "capetown", "newyork"]
+
+exp_app = os.environ.get("APP")
 
 # this method not actually tested
 def my_listener(state):
@@ -41,30 +42,29 @@ zk.add_listener(my_listener)
 
 locklist = {}
 
+dirname = os.path.dirname(__file__)
+oplocks = {}
+oplock_filename = os.path.join(dirname, exp_app, 'oplock.json')
+with open(oplock_filename, 'r') as oplock_file:
+  # content = oplock_file.Read
+  oplocks = json.load(oplock_file)
 
-def getlocklist(opname, oplocks):
+locktypes = {}
+locktype_filename = os.path.join(dirname, exp_app, 'locktype.json')
+with open(locktype_filename, 'r') as locktype_file:
+  locktypes = json.load(locktype_file)
+
+
+def getlocks(opname, oplocks):
   for l in oplocks:
     if l["op"] == opname:
       return l["locks"]
 
 # support functions
 # get required locks for that method
-def get_lock_list(appname, opname, params):
-  oplocks = {}
-  oplock_filename = os.path.join(dirname, appname, 'oplock.json')
-  with open(oplock_filename, 'r') as oplock_file:
-    # content = oplock_file.Read
-    oplocks = json.load(oplock_file)
-  
-  locktypes = {}
-  locktype_filename = os.path.join(dirname, appname, 'locktype.json')
-  with open(locktype_filename, 'r') as locktype_file:
-    locktypes = json.load(locktype_file)
-
+def get_lock_list(opname, params):
   locks = []
-
-  requiredLocks = getlocklist(opname, oplocks)
-
+  requiredLocks = getlocks(opname, oplocks)
   for r in requiredLocks :
     for t in locktypes:
       if r["name"] == t["name"] :
@@ -75,16 +75,15 @@ def get_lock_list(appname, opname, params):
         locktype = LockType(t["name"], t["params"], t["category"], t["placement"])
         newlock = Lock(lockname, locktype, r["mode"])
         locks += [newlock]
-
   # print([l.name for l in locks])
   return locks
 
 # acquire locks
 # get all the required locks asynchronously from zookeeper
 @dispatcher.add_method
-def acquire_locks(appname, opname, params):
+def acquire_locks(opname, params):
   print("inside acquire locks", flush=True)
-  locks = get_lock_list(appname, opname, params)
+  locks = get_lock_list(opname, params)
   locknames = sorted([(l.name, l.mode) for l in locks])
   zklocks = []
   for each in locknames:

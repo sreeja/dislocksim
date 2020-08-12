@@ -1,8 +1,11 @@
 run:
+	sh experiment.sh
+
+dockrun:
 	docker-compose up
 
-run-build:
+dockrun-build:
 	docker-compose up --build
 
-down:
+dockdown:
 	docker-compose down -v --remove-orphans
