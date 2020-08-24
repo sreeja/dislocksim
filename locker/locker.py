@@ -35,7 +35,7 @@ def my_listener(state):
         logger.exception(e)
 
 time.sleep(30) # for zookeeper to startup
-zk = KazooClient(hosts='zookeeper:2181')
+zk = KazooClient(hosts='zoo-paris:2181')
 zk.start()
 
 zk.add_listener(my_listener)

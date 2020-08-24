@@ -1,11 +1,25 @@
 version: '3.4'
 
+networks:
+  locknet:
+    ipam:
+      config:
+        - subnet: 172.20.0.0/24
+
 services:
 
-  zookeeper:
-    image: zookeeper
+  zoo-paris:
+    build:
+      context: ./zookeeper
+      dockerfile: Dockerfile
     restart: always
-    hostname: zoo1
+    hostname: zoo-paris
+    cap_add:
+      - ALL
+    container_name: zoo-paris
+    networks:
+      locknet:
+        ipv4_address: 172.20.0.5
     ports:
       - 2181:2181
 
@@ -19,9 +33,15 @@ services:
       - WHOAMI=locker-paris
       - APP=${APP}
     depends_on:
-      - zookeeper
+      - zoo-paris
     links:
-      - zookeeper
+      - zoo-paris
+    cap_add:
+      - ALL
+    container_name: locker-paris
+    networks:
+      locknet:
+        ipv4_address: 172.20.0.15
     ports:
       - 4001:4001
     command: python locker.py 
@@ -32,14 +52,19 @@ services:
       dockerfile: Dockerfile
     volumes:
       - "./locker:/usr/src/app"
-      - "./data/tokyo:/usr/data"
     environment:
       - WHOAMI=locker-tokyo
       - APP=${APP}
     depends_on:
-      - zookeeper
+      - zoo-paris
     links:
-      - zookeeper
+      - zoo-paris
+    cap_add:
+      - ALL
+    container_name: locker-tokyo
+    networks:
+      locknet:
+        ipv4_address: 172.20.0.16
     ports:
       - 4002:4002
     command: python locker.py 
@@ -50,14 +75,19 @@ services:
       dockerfile: Dockerfile
     volumes:
       - "./locker:/usr/src/app"
-      - "./data/singapore:/usr/data"
     environment:
       - WHOAMI=locker-singapore
       - APP=${APP}
     depends_on:
-      - zookeeper
+      - zoo-paris
     links:
-      - zookeeper
+      - zoo-paris
+    cap_add:
+      - ALL
+    container_name: locker-singapore
+    networks:
+      locknet:
+        ipv4_address: 172.20.0.17
     ports:
       - 4003:4003
     command: python locker.py 
@@ -68,14 +98,19 @@ services:
       dockerfile: Dockerfile
     volumes:
       - "./locker:/usr/src/app"
-      - "./data/capetown:/usr/data"
     environment:
       - WHOAMI=locker-capetown
       - APP=${APP}
     depends_on:
-      - zookeeper
+      - zoo-paris
     links:
-      - zookeeper
+      - zoo-paris
+    cap_add:
+      - ALL
+    container_name: locker-capetown
+    networks:
+      locknet:
+        ipv4_address: 172.20.0.18
     ports:
       - 4004:4004
     command: python locker.py 
@@ -86,14 +121,19 @@ services:
       dockerfile: Dockerfile
     volumes:
       - "./locker:/usr/src/app"
-      - "./data/newyork:/usr/data"
     environment:
       - WHOAMI=locker-newyork
       - APP=${APP}
     depends_on:
-      - zookeeper
+      - zoo-paris
     links:
-      - zookeeper
+      - zoo-paris
+    cap_add:
+      - ALL
+    container_name: locker-newyork
+    networks:
+      locknet:
+        ipv4_address: 172.20.0.19
     ports:
       - 4005:4005
     command: python locker.py 
@@ -104,7 +144,6 @@ services:
       dockerfile: Dockerfile
     volumes:
       - "./application:/usr/src/app"
-      - "./data/paris:/usr/data"
     environment:
       - WHOAMI=paris
       - APP=${APP}
@@ -112,6 +151,10 @@ services:
       - locker-paris
     links:
       - locker-paris
+    container_name: paris
+    networks:
+      locknet:
+        ipv4_address: 172.20.0.25
     ports:
       - 6001:6000
     command: flask run --host=0.0.0.0 --port=6000
@@ -122,7 +165,6 @@ services:
       dockerfile: Dockerfile
     volumes:
       - "./application:/usr/src/app"
-      - "./data/tokyo:/usr/data"
     environment:
       - WHOAMI=tokyo
       - APP=${APP}
@@ -130,6 +172,10 @@ services:
       - locker-tokyo
     links:
       - locker-tokyo
+    container_name: tokyo
+    networks:
+      locknet:
+        ipv4_address: 172.20.0.26
     ports:
       - 6002:6000
     command: flask run --host=0.0.0.0 --port=6000
@@ -140,7 +186,6 @@ services:
       dockerfile: Dockerfile
     volumes:
       - "./application:/usr/src/app"
-      - "./data/singapore:/usr/data"
     environment:
       - WHOAMI=singapore
       - APP=${APP}
@@ -148,6 +193,10 @@ services:
       - locker-singapore
     links:
       - locker-singapore
+    container_name: singapore
+    networks:
+      locknet:
+        ipv4_address: 172.20.0.27
     ports:
       - 6003:6000
     command: flask run --host=0.0.0.0 --port=6000
@@ -158,7 +207,6 @@ services:
       dockerfile: Dockerfile
     volumes:
       - "./application:/usr/src/app"
-      - "./data/capetown:/usr/data"
     environment:
       - WHOAMI=capetown
       - APP=${APP}
@@ -166,6 +214,10 @@ services:
       - locker-capetown
     links:
       - locker-capetown
+    container_name: capetown
+    networks:
+      locknet:
+        ipv4_address: 172.20.0.28
     ports:
       - 6004:6000
     command: flask run --host=0.0.0.0 --port=6000
@@ -176,7 +228,6 @@ services:
       dockerfile: Dockerfile
     volumes:
       - "./application:/usr/src/app"
-      - "./data/newyork:/usr/data"
     environment:
       - WHOAMI=newyork
       - APP=${APP}
@@ -184,6 +235,10 @@ services:
       - locker-newyork
     links:
       - locker-newyork
+    container_name: newyork
+    networks:
+      locknet:
+        ipv4_address: 172.20.0.29
     ports:
       - 6005:6000
     command: flask run --host=0.0.0.0 --port=6000
