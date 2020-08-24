@@ -3,7 +3,7 @@ from flask import Flask, request
 import time
 import requests
 import json
-
+from datetime import datetime
 
 def create_app():
   flapp = Flask(__name__)
@@ -62,7 +62,10 @@ def execute(opname, params):
 
 @flapp.route('/')
 def hello_world():
-  return f'Hello world from {whoami} \n'
+  tic = datetime.now()
+  execute('createauction',{'seller':'s12'})
+  duration = datetime.now() - tic
+  return f'Hello world from {whoami} , total time taken {str(duration)} \n'
 
 @flapp.route('/do', methods=['GET'])
 def do_get():
