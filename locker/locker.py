@@ -11,6 +11,7 @@ from Lock import LockType, Lock
 from kazoo.client import KazooClient, KazooState
 
 whoami = os.environ.get("WHOAMI")
+replicaname = whoami[whoami.index('-')+1:]
 replicas = ["paris", "tokyo", "singapore", "capetown", "newyork"]
 
 exp_app = os.environ.get("APP")
@@ -34,8 +35,21 @@ def my_listener(state):
       except Exception as e:
         logger.exception(e)
 
-time.sleep(30) # for zookeeper to startup
-zk = KazooClient(hosts='zoo-paris:2181')
+time.sleep(15) # for zookeeper to startup
+placement = os.environ.get("PLACEMENT")
+if placement == "centralised":
+  zookeeper_client = 'zoo-paris:2181'
+elif placement == "clustered":
+  # get nearest - tokyo - nyc, singapore-paris, rest same
+  if replicaname == "singapore":
+    zookeeper_client = 'zoo-paris:2181'
+  elif replicaname == "tokyo":
+    zookeeper_client = 'zoo-newyork:2181'
+  else:
+    zookeeper_client = 'zoo-' + replicaname + ':2181'
+else:
+  zookeeper_client = 'zoo-' + replicaname + ':2181'
+zk = KazooClient(hosts=zookeeper_client)
 zk.start()
 
 zk.add_listener(my_listener)
@@ -130,7 +144,7 @@ def application(request):
 
 
 if __name__ == '__main__':
-    run_simple(whoami, 4001 + replicas.index(whoami[whoami.index('-')+1:]), application)
+    run_simple(whoami, 4001 + replicas.index(replicaname), application)
 
 
 # get_lock_list('auction', 'placebid', {"auction":"a12", "buyer":"b45"})
