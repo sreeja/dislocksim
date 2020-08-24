@@ -74,38 +74,38 @@ docker exec -it zoo-paris tc filter add dev eth0 parent 1:0 protocol ip u32 matc
 docker exec -it zoo-paris tc filter add dev eth0 parent 1:0 protocol ip u32 match ip dst 172.20.0.18 flowid 1:4
 docker exec -it zoo-paris tc filter add dev eth0 parent 1:0 protocol ip u32 match ip dst 172.20.0.19 flowid 1:5
 
-docker exec -it locker-paris ping -c 4 locker-tokyo
-docker exec -it locker-paris ping -c 4 locker-singapore
-docker exec -it locker-paris ping -c 4 locker-capetown
-docker exec -it locker-paris ping -c 4 locker-newyork
-docker exec -it locker-paris ping -c 4 zoo-paris
+# docker exec -it locker-paris ping -c 4 locker-tokyo
+# docker exec -it locker-paris ping -c 4 locker-singapore
+# docker exec -it locker-paris ping -c 4 locker-capetown
+# docker exec -it locker-paris ping -c 4 locker-newyork
+# docker exec -it locker-paris ping -c 4 zoo-paris
 
-docker exec -it locker-tokyo ping -c 4 locker-paris
-docker exec -it locker-tokyo ping -c 4 locker-singapore
-docker exec -it locker-tokyo ping -c 4 locker-capetown
-docker exec -it locker-tokyo ping -c 4 locker-newyork
-docker exec -it locker-tokyo ping -c 4 zoo-paris
+# docker exec -it locker-tokyo ping -c 4 locker-paris
+# docker exec -it locker-tokyo ping -c 4 locker-singapore
+# docker exec -it locker-tokyo ping -c 4 locker-capetown
+# docker exec -it locker-tokyo ping -c 4 locker-newyork
+# docker exec -it locker-tokyo ping -c 4 zoo-paris
 
-docker exec -it locker-singapore ping -c 4 locker-tokyo
-docker exec -it locker-singapore ping -c 4 locker-paris
-docker exec -it locker-singapore ping -c 4 locker-capetown
-docker exec -it locker-singapore ping -c 4 locker-newyork
-docker exec -it locker-singapore ping -c 4 zoo-paris
+# docker exec -it locker-singapore ping -c 4 locker-tokyo
+# docker exec -it locker-singapore ping -c 4 locker-paris
+# docker exec -it locker-singapore ping -c 4 locker-capetown
+# docker exec -it locker-singapore ping -c 4 locker-newyork
+# docker exec -it locker-singapore ping -c 4 zoo-paris
 
-docker exec -it locker-capetown ping -c 4 locker-tokyo
-docker exec -it locker-capetown ping -c 4 locker-singapore
-docker exec -it locker-capetown ping -c 4 locker-paris
-docker exec -it locker-capetown ping -c 4 locker-newyork
-docker exec -it locker-capetown ping -c 4 zoo-paris
+# docker exec -it locker-capetown ping -c 4 locker-tokyo
+# docker exec -it locker-capetown ping -c 4 locker-singapore
+# docker exec -it locker-capetown ping -c 4 locker-paris
+# docker exec -it locker-capetown ping -c 4 locker-newyork
+# docker exec -it locker-capetown ping -c 4 zoo-paris
 
-docker exec -it locker-newyork ping -c 4 locker-tokyo
-docker exec -it locker-newyork ping -c 4 locker-singapore
-docker exec -it locker-newyork ping -c 4 locker-capetown
-docker exec -it locker-newyork ping -c 4 locker-paris
-docker exec -it locker-newyork ping -c 4 zoo-paris
+# docker exec -it locker-newyork ping -c 4 locker-tokyo
+# docker exec -it locker-newyork ping -c 4 locker-singapore
+# docker exec -it locker-newyork ping -c 4 locker-capetown
+# docker exec -it locker-newyork ping -c 4 locker-paris
+# docker exec -it locker-newyork ping -c 4 zoo-paris
 
-docker exec -it zoo-paris ping -c 4 locker-tokyo
-docker exec -it zoo-paris ping -c 4 locker-singapore
-docker exec -it zoo-paris ping -c 4 locker-capetown
-docker exec -it zoo-paris ping -c 4 locker-newyork
-docker exec -it zoo-paris ping -c 4 locker-paris
+# docker exec -it zoo-paris ping -c 4 locker-tokyo
+# docker exec -it zoo-paris ping -c 4 locker-singapore
+# docker exec -it zoo-paris ping -c 4 locker-capetown
+# docker exec -it zoo-paris ping -c 4 locker-newyork
+# docker exec -it zoo-paris ping -c 4 locker-paris
