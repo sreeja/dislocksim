@@ -15,6 +15,8 @@ replicaname = whoami[whoami.index('-')+1:]
 replicas = ["paris", "tokyo", "singapore", "capetown", "newyork"]
 
 exp_app = os.environ.get("APP")
+exp_gran = os.environ.get("GRANULARITY")
+exp_type = os.environ.get("LOCKTYPE")
 
 # this method not actually tested
 def my_listener(state):
@@ -58,13 +60,13 @@ locklist = {}
 
 dirname = os.path.dirname(__file__)
 oplocks = {}
-oplock_filename = os.path.join(dirname, exp_app, 'oplock.json')
+oplock_filename = os.path.join(dirname, exp_app, 'granular'+exp_gran, 'oplock'+exp_type+'.json')
 with open(oplock_filename, 'r') as oplock_file:
   # content = oplock_file.Read
   oplocks = json.load(oplock_file)
 
 locktypes = {}
-locktype_filename = os.path.join(dirname, exp_app, 'locktype.json')
+locktype_filename = os.path.join(dirname, exp_app, 'granular'+exp_gran, 'locktype.json')
 with open(locktype_filename, 'r') as locktype_file:
   locktypes = json.load(locktype_file)
 
@@ -86,7 +88,7 @@ def get_lock_list(opname, params):
         for p in t["params"]:
           paramValues += [params[p]]
         lockname = "_".join([t["name"]] + paramValues)
-        locktype = LockType(t["name"], t["params"], t["category"], t["placement"])
+        locktype = LockType(t["name"], t["params"])
         newlock = Lock(lockname, locktype, r["mode"])
         locks += [newlock]
   # print([l.name for l in locks])

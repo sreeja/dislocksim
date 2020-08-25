@@ -72,6 +72,8 @@ services:
       - WHOAMI=locker-paris
       - APP=${APP}
       - PLACEMENT=clustered
+      - GRANULARITY=${GRANULARITY}
+      - LOCKTYPE=${LOCKTYPE}
     depends_on:
       - zoo-paris
     links:
@@ -96,6 +98,8 @@ services:
       - WHOAMI=locker-tokyo
       - APP=${APP}
       - PLACEMENT=clustered
+      - GRANULARITY=${GRANULARITY}
+      - LOCKTYPE=${LOCKTYPE}
     depends_on:
       - zoo-paris
     links:
@@ -120,6 +124,8 @@ services:
       - WHOAMI=locker-singapore
       - APP=${APP}
       - PLACEMENT=clustered
+      - GRANULARITY=${GRANULARITY}
+      - LOCKTYPE=${LOCKTYPE}
     depends_on:
       - zoo-paris
     links:
@@ -144,6 +150,8 @@ services:
       - WHOAMI=locker-capetown
       - APP=${APP}
       - PLACEMENT=clustered
+      - GRANULARITY=${GRANULARITY}
+      - LOCKTYPE=${LOCKTYPE}
     depends_on:
       - zoo-paris
     links:
@@ -168,6 +176,8 @@ services:
       - WHOAMI=locker-newyork
       - APP=${APP}
       - PLACEMENT=clustered
+      - GRANULARITY=${GRANULARITY}
+      - LOCKTYPE=${LOCKTYPE}
     depends_on:
       - zoo-paris
     links:

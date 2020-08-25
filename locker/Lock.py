@@ -2,13 +2,9 @@ class LockType:
   def __init__(self):
     pass
 
-  def __init__(self, name, params, category, placement):
+  def __init__(self, name, params):
     self.name = name
     self.params = params
-    self.category = category
-    self.placement = placement
-
-
 
 
 class Lock:
