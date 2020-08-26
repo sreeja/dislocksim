@@ -1,0 +1,22 @@
+[
+  {
+    "name":"removefromlot",
+    "time":0.5
+  },
+  {
+    "name":"startauction",
+    "time":0.5
+  },
+  {
+    "name":"addtolot",
+    "time":1
+  },
+  {
+    "name":"removeproduct",
+    "time":0.5
+  },
+  {
+    "name":"removeauction",
+    "time":0.5
+  }
+]

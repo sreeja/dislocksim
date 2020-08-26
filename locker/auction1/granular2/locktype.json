@@ -1,0 +1,6 @@
+[
+  {
+    "name":"addproduct_createauction_unregisterseller",
+    "params":["seller"]
+  }
+]

@@ -1,0 +1,10 @@
+[
+  {
+    "name":"addproduct_unregisterseller",
+    "params":["seller"]
+  },
+  {
+    "name":"createauction_unregisterseller",
+    "params":["seller"]
+  }
+]

@@ -1,0 +1,29 @@
+[
+   {
+    "op":"addproduct",
+    "locks":[
+      {
+        "name":"addproduct_createauction_unregisterseller",
+        "mode":"exclusive"
+      }
+    ]
+  },
+  {
+    "op":"unregisterseller",
+    "locks":[
+      {
+        "name":"addproduct_createauction_unregisterseller",
+        "mode":"exclusive"
+      }
+    ]
+  },
+  {
+    "op":"createauction",
+    "locks":[
+      {
+        "name":"addproduct_createauction_unregisterseller",
+        "mode":"exclusive"
+      }
+    ]
+  }
+]

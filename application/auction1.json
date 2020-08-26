@@ -1,0 +1,14 @@
+[
+  {
+    "name":"addproduct",
+    "time":1
+  },
+  {
+    "name":"unregisterseller",
+    "time":0.5
+  },
+  {
+    "name":"createauction",
+    "time":1
+  }
+]
