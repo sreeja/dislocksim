@@ -48,7 +48,7 @@
     "locks":[
       {
         "name":"addtolot_removefromlot_removeauction_startauction",
-        "mode":"exclusive"
+        "mode":"shared"
       }
     ]
   }

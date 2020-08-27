@@ -28,10 +28,8 @@ make dockrun-cent
 # granularity 4, type - 18
 # granularity 5, type - 27
 # granularity 6, type - 18
-# granularity 7, type - 27
-# granularity 8, type - 18
-# granularity 9, type - 9
-# granularity 10, type - 6
-# 285 configurations
+# granularity 7, type - 24
+# granularity 8, type - 16
+# 265 configurations
 
-# 333 configurations in total
+# 313 configurations in total

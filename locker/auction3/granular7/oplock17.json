@@ -30,7 +30,7 @@
       },
       {
         "name":"addtolot_removeproduct",
-        "mode":"exclusive"
+        "mode":"shared"
       }
     ]
   },

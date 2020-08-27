@@ -4,7 +4,7 @@
     "locks":[
       {
         "name":"addtolot_removefromlot_removeauction_startauction",
-        "mode":"exclusive"
+        "mode":"shared"
       }
     ]
   },
@@ -30,7 +30,7 @@
       },
       {
         "name":"addtolot_removeproduct",
-        "mode":"exclusive"
+        "mode":"shared"
       }
     ]
   },
@@ -48,7 +48,7 @@
     "locks":[
       {
         "name":"addtolot_removefromlot_removeauction_startauction",
-        "mode":"exclusive"
+        "mode":"shared"
       }
     ]
   }

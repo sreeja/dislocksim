@@ -13,7 +13,7 @@
     "locks":[
       {
         "name":"addtolot_removefromlot_removeauction_startauction",
-        "mode":"exclusive"
+        "mode":"shared"
       }
     ]
   },
@@ -22,10 +22,6 @@
     "locks":[
       {
         "name":"addtolot_removefromlot_removeauction_startauction",
-        "mode":"exclusive"
-      },
-      {
-        "name":"addtolot_addtolot",
         "mode":"exclusive"
       },
       {
@@ -48,7 +44,7 @@
     "locks":[
       {
         "name":"addtolot_removefromlot_removeauction_startauction",
-        "mode":"exclusive"
+        "mode":"shared"
       }
     ]
   }
