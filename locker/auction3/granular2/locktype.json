@@ -8,10 +8,6 @@
     "params":["auction"]
   },
   {
-    "name":"addtolot_addtolot",
-    "params":["seller"]
-  },
-  {
     "name":"addtolot_removeproduct",
     "params":["seller"]
   },

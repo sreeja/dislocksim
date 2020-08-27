@@ -23,15 +23,15 @@ make dockrun-cent
 
 # auction3
 # granularity 1, type - 81
-# granularity 2, type - 81
+# granularity 2, type - 54
 # granularity 3, type - 27
-# granularity 4, type - 27
+# granularity 4, type - 18
 # granularity 5, type - 27
-# granularity 6, type - 27
+# granularity 6, type - 18
 # granularity 7, type - 27
-# granularity 8, type - 27
+# granularity 8, type - 18
 # granularity 9, type - 9
-# granularity 10, type - 9
-# 342 configurations
+# granularity 10, type - 6
+# 285 configurations
 
-# 390 configurations in total
+# 333 configurations in total

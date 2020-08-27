@@ -16,7 +16,7 @@
         "mode":"exclusive"
       },
       {
-        "name":"addtolot_startauction",
+        "name":"addtolot_removeauction_startauction",
         "mode":"exclusive"
       }
     ]
@@ -25,7 +25,7 @@
     "op":"addtolot",
     "locks":[
       {
-        "name":"addtolot_startauction",
+        "name":"addtolot_removeauction_startauction",
         "mode":"exclusive"
       },
       {
@@ -34,10 +34,6 @@
       },
       {
         "name":"addtolot_removeproduct",
-        "mode":"exclusive"
-      },
-      {
-        "name":"addtolot_removeauction",
         "mode":"exclusive"
       }
     ]
@@ -55,7 +51,7 @@
     "op":"removeauction",
     "locks":[
       {
-        "name":"addtolot_removeauction",
+        "name":"addtolot_removeauction_startauction",
         "mode":"exclusive"
       }
     ]

@@ -1,15 +1,7 @@
 [
   {
-    "name":"removefromlot_startauction",
+    "name":"addtolot_removefromlot_startauction",
     "params":["auction"]
-  },
-  {
-    "name":"addtolot_startauction",
-    "params":["auction"]
-  },
-  {
-    "name":"addtolot_addtolot",
-    "params":["seller"]
   },
   {
     "name":"addtolot_removeproduct",

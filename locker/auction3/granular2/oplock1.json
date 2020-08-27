@@ -29,10 +29,6 @@
         "mode":"exclusive"
       },
       {
-        "name":"addtolot_addtolot",
-        "mode":"exclusive"
-      },
-      {
         "name":"addtolot_removeproduct",
         "mode":"exclusive"
       },
