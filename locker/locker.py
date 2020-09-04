@@ -114,6 +114,7 @@ def acquire_locks(opname, params):
     done = each.acquire()
     if not done:
       print(each.path + " not acquired")
+      raise NameError("Lock failed")
   # print("all locks acquired", flush=True)
   return locknames
 
@@ -122,6 +123,7 @@ def acquire_locks(opname, params):
 @dispatcher.add_method
 def release_locks(locknames):
   # print("inside release locks", flush=True)
+  print(locklist, flush=True)
   zklocks = []
   for each in locknames:
     zklocks += [locklist[each[0]+'-'+each[1]]]
@@ -131,12 +133,11 @@ def release_locks(locknames):
     # print(done, flush=True)
     if not done:
       print(each.path + " not released")
-
+      raise NameError("Not released")
   # print("all locks released", flush=True)
   return
 
 
-# TODO: rpc
 @Request.application
 def application(request):
     # Dispatcher is dictionary {<method_name>: callable}
@@ -147,6 +148,3 @@ def application(request):
 
 if __name__ == '__main__':
     run_simple(whoami, 4001 + replicas.index(replicaname), application)
-
-
-# get_lock_list('auction', 'placebid', {"auction":"a12", "buyer":"b45"})

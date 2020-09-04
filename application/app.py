@@ -67,7 +67,7 @@ def hello_world():
   duration = datetime.now() - tic
   return f'Hello world from {whoami} , total time taken {str(duration)} \n'
 
-@flapp.route('/do', methods=['GET'])
+@flapp.route('/do', methods=['GET','PUT','DELETE','POST'])
 def do_get():
   op = request.args.get('op', '')
   paramstring = request.args.get('params', '')
@@ -83,50 +83,50 @@ def do_get():
   
   return "done"
 
-@flapp.route('/do', methods=['PUT'])
-def do_put():
-  op = request.args.get('op', '')
-  paramstring = request.args.get('params', '')
+# @flapp.route('/do', methods=['PUT'])
+# def do_put():
+#   op = request.args.get('op', '')
+#   paramstring = request.args.get('params', '')
 
-  params = {}
-  for each in paramstring.split(","):
-    kv = each.split("-")
-    params[kv[0]] = kv[1]
+#   params = {}
+#   for each in paramstring.split(","):
+#     kv = each.split("-")
+#     params[kv[0]] = kv[1]
 
-  print(op, params, flush=True)
+#   print(op, params, flush=True)
 
-  execute(op, params)
+#   execute(op, params)
   
-  return "done"
+#   return "done"
 
-@flapp.route('/do', methods=['DELETE'])
-def do_delete():
-  op = request.args.get('op', '')
-  paramstring = request.args.get('params', '')
+# @flapp.route('/do', methods=['DELETE'])
+# def do_delete():
+#   op = request.args.get('op', '')
+#   paramstring = request.args.get('params', '')
 
-  params = {}
-  for each in paramstring.split(","):
-    kv = each.split("-")
-    params[kv[0]] = kv[1]
+#   params = {}
+#   for each in paramstring.split(","):
+#     kv = each.split("-")
+#     params[kv[0]] = kv[1]
 
-  print(op, params, flush=True)
+#   print(op, params, flush=True)
 
-  execute(op, params)
+#   execute(op, params)
   
-  return "done"
+#   return "done"
 
-@flapp.route('/do', methods=['POST'])
-def do_post():
-  op = request.args.get('op', '')
-  paramstring = request.args.get('params', '')
+# @flapp.route('/do', methods=['POST'])
+# def do_post():
+#   op = request.args.get('op', '')
+#   paramstring = request.args.get('params', '')
 
-  params = {}
-  for each in paramstring.split(","):
-    kv = each.split("-")
-    params[kv[0]] = kv[1]
+#   params = {}
+#   for each in paramstring.split(","):
+#     kv = each.split("-")
+#     params[kv[0]] = kv[1]
 
-  print(op, params, flush=True)
+#   print(op, params, flush=True)
 
-  execute(op, params)
+#   execute(op, params)
   
-  return "done"
+#   return "done"
