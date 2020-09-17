@@ -145,3 +145,5 @@ bin/*
 exp-env/*
 
 workload/ycsb-0.17.0/*
+
+results/small22_0/*
