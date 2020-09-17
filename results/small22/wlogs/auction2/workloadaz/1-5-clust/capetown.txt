@@ -1,0 +1,52 @@
+Still waiting for thread Thread-2 to complete. Workload status: true
+Still waiting for thread Thread-2 to complete. Workload status: true
+Still waiting for thread Thread-2 to complete. Workload status: true
+Still waiting for thread Thread-2 to complete. Workload status: true
+Still waiting for thread Thread-2 to complete. Workload status: true
+Still waiting for thread Thread-2 to complete. Workload status: true
+Still waiting for thread Thread-2 to complete. Workload status: true
+Still waiting for thread Thread-2 to complete. Workload status: true
+Still waiting for thread Thread-2 to complete. Workload status: true
+Still waiting for thread Thread-2 to complete. Workload status: true
+Still waiting for thread Thread-2 to complete. Workload status: true
+Still waiting for thread Thread-2 to complete. Workload status: true
+Still waiting for thread Thread-2 to complete. Workload status: true
+Still waiting for thread Thread-2 to complete. Workload status: true
+Still waiting for thread Thread-2 to complete. Workload status: true
+[OVERALL], RunTime(ms), 7230940
+[OVERALL], Throughput(ops/sec), 0.018669771841558637
+[TOTAL_GCS_G1_Young_Generation], Count, 2
+[TOTAL_GC_TIME_G1_Young_Generation], Time(ms), 36
+[TOTAL_GC_TIME_%_G1_Young_Generation], Time(%), 4.978605824415637E-4
+[TOTAL_GCS_G1_Old_Generation], Count, 0
+[TOTAL_GC_TIME_G1_Old_Generation], Time(ms), 0
+[TOTAL_GC_TIME_%_G1_Old_Generation], Time(%), 0.0
+[TOTAL_GCs], Count, 2
+[TOTAL_GC_TIME], Time(ms), 36
+[TOTAL_GC_TIME_%], Time(%), 4.978605824415637E-4
+[CLEANUP], Operations, 1
+[CLEANUP], AverageLatency(us), 3.0
+[CLEANUP], MinLatency(us), 3
+[CLEANUP], MaxLatency(us), 3
+[CLEANUP], 50thPercentileLatency(us), 3
+[CLEANUP], 90thPercentileLatency(us), 3
+[CLEANUP], 95thPercentileLatency(us), 3
+[CLEANUP], 99thPercentileLatency(us), 3
+[INSERT], Operations, 15
+[INSERT], AverageLatency(us), 1617783.4666666666
+[INSERT], MinLatency(us), 1358848
+[INSERT], MaxLatency(us), 3153919
+[INSERT], 50thPercentileLatency(us), 1424383
+[INSERT], 90thPercentileLatency(us), 1909759
+[INSERT], 95thPercentileLatency(us), 1909759
+[INSERT], 99thPercentileLatency(us), 3153919
+[INSERT], Return=OK, 15
+[INSERT], Return=ERROR, 120
+[INSERT-FAILED], Operations, 120
+[INSERT-FAILED], AverageLatency(us), 6.00416256E7
+[INSERT-FAILED], MinLatency(us), 59998208
+[INSERT-FAILED], MaxLatency(us), 60096511
+[INSERT-FAILED], 50thPercentileLatency(us), 60063743
+[INSERT-FAILED], 90thPercentileLatency(us), 60063743
+[INSERT-FAILED], 95thPercentileLatency(us), 60063743
+[INSERT-FAILED], 99thPercentileLatency(us), 60063743
