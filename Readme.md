@@ -38,3 +38,8 @@ For each lock configuration, do mini experiment
 
 ## Entire run
 For each application, do experiment
+
+
+
+## Results
+Tabulated at https://docs.google.com/spreadsheets/d/1_opoFhQ-y-xezhzYY_00gPrmZXB0LvM_YUBrcDrSO8Q/edit#gid=0
