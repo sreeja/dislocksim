@@ -146,4 +146,6 @@ exp-env/*
 
 workload/ycsb-0.17.0/*
 
-results/small22_0/*
+results/small*/*
+results/*
+results/combined/*

@@ -17,7 +17,7 @@
       },
       {
         "name":"closeauction_placebid",
-        "mode":"exclusive"
+        "mode":"shared"
       }
     ]
   },
@@ -26,7 +26,7 @@
     "locks":[
       {
         "name":"closeauction_placebid",
-        "mode":"shared"
+        "mode":"exclusive"
       },
       {
         "name":"closeauction_removebid",

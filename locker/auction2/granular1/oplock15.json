@@ -26,7 +26,7 @@
     "locks":[
       {
         "name":"closeauction_placebid",
-        "mode":"exclusive"
+        "mode":"shared"
       },
       {
         "name":"closeauction_removebid",
