@@ -40,9 +40,16 @@ def execute(opname, params):
         "jsonrpc": "2.0",
         "id": 0,
     }
-  response = requests.post(url, json=payload).json()
+  try:
+    response = requests.post(url, json=payload).json()
+  except requests.exceptions.Timeout:
+    print("Timeout while acquire", flush=True)
+    raise
+  except Exception as e:
+    print("Some other error while acquire", flush=True)
+    raise
 
-  print(response, flush=True)
+  print("MYAcquire ", response, flush=True)
   print("locks acquired", flush=True)
   # sleep the execution time
   # print(exectime[opname])
@@ -55,7 +62,17 @@ def execute(opname, params):
         "jsonrpc": "2.0",
         "id": 0,
     }
-  response = requests.post(url, json=payload).json()
+  try:
+    response = requests.post(url, json=payload).json()
+  except requests.exceptions.Timeout:
+    print("Timeout while release", flush=True)
+    raise
+  except Exception as e:
+    print("Some other error while release", flush=True)
+    raise
+
+  print("MYRelease ", response, flush=True)
+
 
   print("locks released", flush=True)
 
@@ -68,7 +85,9 @@ def hello_world():
   return f'Hello world from {whoami} , total time taken {str(duration)} \n'
 
 @flapp.route('/do', methods=['GET','PUT','DELETE','POST'])
-def do_get():
+def do_get(): 
+
+  print("Calling the op..", flush=True)
   op = request.args.get('op', '')
   paramstring = request.args.get('params', '')
 
@@ -80,7 +99,9 @@ def do_get():
   print(op, params, flush=True)
 
   execute(op, params)
-  
+  # except Exception as e:
+  #   print("Errorwewant", str(e), flush=True)
+  #   return "failed"
   return "done"
 
 # @flapp.route('/do', methods=['PUT'])

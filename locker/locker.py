@@ -98,6 +98,7 @@ def get_lock_list(opname, params):
 # get all the required locks asynchronously from zookeeper
 @dispatcher.add_method
 def acquire_locks(opname, params):
+  # raise Exception("Just for fun")
   print("inside acquire locks", flush=True)
   locks = get_lock_list(opname, params)
   locknames = sorted([(l.name, l.mode) for l in locks])
@@ -110,11 +111,24 @@ def acquire_locks(opname, params):
     zklocks += [lock]
     locklist[each[0]+'-'+each[1]] = lock
   # TODO: acquire all locks asynchronously
+  flag = False
   for each in zklocks:
-    done = each.acquire()
+    try:
+      done = each.acquire(timeout=28)
+    except Exception as e:
+      print("FAILURELOCK", str(e))
+      flag = True
+      break
     if not done:
-      print(each.path + " not acquired")
-      raise NameError("Lock failed")
+      # print(each.path + " not acquired", flush=True)
+      # raise Exception("Lock not acquired")
+      flag = True
+      break
+  if flag:
+    for each in zklocks:
+      each.release()
+    print("Lock failed", flush=True)
+    raise Exception("Lock failed")
   # print("all locks acquired", flush=True)
   return locknames
 
@@ -122,18 +136,22 @@ def acquire_locks(opname, params):
 # release all locks
 @dispatcher.add_method
 def release_locks(locknames):
-  # print("inside release locks", flush=True)
+  print("inside release locks", flush=True)
   print(locklist, flush=True)
   zklocks = []
   for each in locknames:
     zklocks += [locklist[each[0]+'-'+each[1]]]
   # TODO: release all locks asynchronously
   for each in zklocks:
+    # try:
     done = each.release()
-    # print(done, flush=True)
-    if not done:
-      print(each.path + " not released")
-      raise NameError("Not released")
+      # print(done, flush=True)
+    # except Exception as e:
+    #   print("Lock failed: "+ str(e), flush=True)
+    #   raise Exception("Lock failed: "+ str(e))
+    # if not done:
+    #   print(each.path + " not released", flush=True)
+    #   raise Exception("Not released")
   # print("all locks released", flush=True)
   return
 
