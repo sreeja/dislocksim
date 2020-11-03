@@ -149,3 +149,4 @@ workload/ycsb-0.17.0/*
 results/small*/*
 results/*
 results/combined/*
+.vscode/settings.json
