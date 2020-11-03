@@ -1,5 +1,5 @@
 import os
-from flask import Flask, request
+from flask import Flask, request, Response
 import time
 import requests
 import json
@@ -49,32 +49,37 @@ def execute(opname, params):
     print("Some other error while acquire", flush=True)
     raise
 
-  print("MYAcquire ", response, flush=True)
-  print("locks acquired", flush=True)
-  # sleep the execution time
-  # print(exectime[opname])
-  time.sleep(exectime[opname] * 0.001)
-
-  # release locks
-  payload = {
-        "method": "release_locks",
-        "params": [response["result"]],
-        "jsonrpc": "2.0",
-        "id": 0,
-    }
-  try:
-    response = requests.post(url, json=payload).json()
-  except requests.exceptions.Timeout:
-    print("Timeout while release", flush=True)
+  if "error" in response:
+    print("Locks not acquired", flush=True)
     raise
-  except Exception as e:
-    print("Some other error while release", flush=True)
-    raise
+  else:
+    print("MYAcquire ", response, flush=True)
+    print("locks acquired", flush=True)
+  
+    # sleep the execution time
+    # print(exectime[opname])
+    time.sleep(exectime[opname] * 0.001)
 
-  print("MYRelease ", response, flush=True)
+    # release locks
+    payload = {
+          "method": "release_locks",
+          "params": [response["result"]],
+          "jsonrpc": "2.0",
+          "id": 0,
+      }
+    try:
+      response = requests.post(url, json=payload).json()
+    except requests.exceptions.Timeout:
+      print("Timeout while release", flush=True)
+      raise
+    except Exception as e:
+      print("Some other error while release", flush=True)
+      raise
+
+    print("MYRelease ", response, flush=True)
 
 
-  print("locks released", flush=True)
+    print("locks released", flush=True)
 
 
 @flapp.route('/')
@@ -87,7 +92,8 @@ def hello_world():
 @flapp.route('/do', methods=['GET','PUT','DELETE','POST'])
 def do_get(): 
 
-  print("Calling the op..", flush=True)
+  print("CALLINGG the op..", flush=True)
+  s = time.time()
   op = request.args.get('op', '')
   paramstring = request.args.get('params', '')
 
@@ -102,7 +108,8 @@ def do_get():
   # except Exception as e:
   #   print("Errorwewant", str(e), flush=True)
   #   return "failed"
-  return "done"
+  print("FINISHINGG the op..", time.time()-s, flush=True)
+  return Response("{'a':'b'}", status=200, mimetype='application/json')
 
 # @flapp.route('/do', methods=['PUT'])
 # def do_put():

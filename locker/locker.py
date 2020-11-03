@@ -105,16 +105,16 @@ def acquire_locks(opname, params):
   zklocks = []
   for each in locknames:
     if each[1] == "shared":
-      lock = zk.ReadLock(each[0])
+      lock = zk.ReadLock(each[0], whoami)
     else:
-      lock = zk.WriteLock(each[0])
+      lock = zk.WriteLock(each[0], whoami)
     zklocks += [lock]
     locklist[each[0]+'-'+each[1]] = lock
   # TODO: acquire all locks asynchronously
   flag = False
   for each in zklocks:
     try:
-      done = each.acquire(timeout=28)
+      done = each.acquire(timeout=10)
     except Exception as e:
       print("FAILURELOCK", str(e))
       flag = True
@@ -140,7 +140,8 @@ def release_locks(locknames):
   print(locklist, flush=True)
   zklocks = []
   for each in locknames:
-    zklocks += [locklist[each[0]+'-'+each[1]]]
+    zklocks += [locklist.pop(each[0]+'-'+each[1])]
+    # locklist.pop(each[0]+'-'+each[1], None)
   # TODO: release all locks asynchronously
   for each in zklocks:
     # try:
