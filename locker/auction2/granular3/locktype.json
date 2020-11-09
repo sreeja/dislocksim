@@ -1,0 +1,6 @@
+[
+  {
+    "name":"closeauction_placebid_removebid_unregisterbuyer",
+    "params":["auction"]
+  }
+]
