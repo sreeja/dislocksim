@@ -14,7 +14,8 @@ def create_app():
 
 
 def get_exec_time(appname):
-    exectime_filename = os.path.join('/', 'usr', 'config', 'application', appname+'.json')
+    exectime_filename = os.path.join(
+        '/', 'usr', 'config', 'application', appname+'.json')
     with open(exectime_filename, 'r') as exectime_file:
         exectimejson = json.load(exectime_file)
 

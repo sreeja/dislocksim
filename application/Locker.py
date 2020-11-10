@@ -39,14 +39,13 @@ class Locker(object):
         for each in self.locklist:
             done = each.release()
 
-
     def getlocks(self, opname, oplocks):
         for entry in oplocks:
             if entry["op"] == opname:
                 return entry["locks"]
 
-
     # get required locks for that method
+
     def get_lock_list(self, oplocks, locktypes, opname, params):
         locks = []
         requiredLocks = self.getlocks(opname, oplocks)
