@@ -5,15 +5,17 @@ import requests
 import json
 from datetime import datetime
 
+
 def create_app():
     flapp = Flask(__name__)
     return flapp
+
 
 def get_exec_time(appname):
     exectime_filename = os.path.join('/', 'usr', 'config', appname+'.json')
     with open(exectime_filename, 'r') as exectime_file:
         exectimejson = json.load(exectime_file)
-    
+
     exectime = {}
     for each in exectimejson:
         exectime[each["name"]] = each["time"]
@@ -55,7 +57,7 @@ def execute(opname, params):
     else:
         print("MYAcquire ", response, flush=True)
         print("locks acquired", flush=True)
-    
+
         # sleep the execution time
         time.sleep(exectime[opname] * 0.001)
 
@@ -82,12 +84,12 @@ def execute(opname, params):
 @flapp.route('/')
 def hello_world():
     tic = datetime.now()
-    execute('createauction',{'seller':'s12'})
+    execute('createauction', {'seller': 's12'})
     duration = datetime.now() - tic
     return f'Hello world from {whoami} , total time taken {str(duration)} \n'
 
 
-@flapp.route('/do', methods=['GET','PUT','DELETE','POST'])
+@flapp.route('/do', methods=['GET', 'PUT', 'DELETE', 'POST'])
 def do_get(): 
     print("CALLINGG the op..", flush=True)
     s = time.time()
