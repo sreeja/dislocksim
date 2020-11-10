@@ -98,155 +98,22 @@ services:
       ZOO_MY_ID: 5
       ZOO_SERVERS: server.1=zoo-paris:2888:3888;2181 server.2=zoo-tokyo:2889:3889;2181 server.3=zoo-singapore:2890:3890;2181 server.4=zoo-capetown:2891:3891;2181 server.5=172.20.0.9:2892:3892;2181
 
-  locker-paris:
-    build:
-      context: ./locker
-      dockerfile: Dockerfile
-    volumes:
-      - "./locker:/usr/src/app"
-      - "./config/locker:/usr/config"
-    environment:
-      - WHOAMI=locker-paris
-      - APP=${APP}
-      - PLACEMENT=centralised
-      - GRANULARITY=${GRANULARITY}
-      - LOCKTYPE=${LOCKTYPE}
-    depends_on:
-      - zoo-paris
-    links:
-      - zoo-paris
-    cap_add:
-      - ALL
-    container_name: locker-paris
-    networks:
-      locknet:
-        ipv4_address: 172.20.0.15
-    ports:
-      - 4001:4001
-    command: python locker.py 
-
-  locker-tokyo:
-    build:
-      context: ./locker
-      dockerfile: Dockerfile
-    volumes:
-      - "./locker:/usr/src/app"
-      - "./config/locker:/usr/config"
-    environment:
-      - WHOAMI=locker-tokyo
-      - APP=${APP}
-      - PLACEMENT=centralised
-      - GRANULARITY=${GRANULARITY}
-      - LOCKTYPE=${LOCKTYPE}
-    depends_on:
-      - zoo-tokyo
-    links:
-      - zoo-tokyo
-    cap_add:
-      - ALL
-    container_name: locker-tokyo
-    networks:
-      locknet:
-        ipv4_address: 172.20.0.16
-    ports:
-      - 4002:4002
-    command: python locker.py 
-
-  locker-singapore:
-    build:
-      context: ./locker
-      dockerfile: Dockerfile
-    volumes:
-      - "./locker:/usr/src/app"
-      - "./config/locker:/usr/config"
-    environment:
-      - WHOAMI=locker-singapore
-      - APP=${APP}
-      - PLACEMENT=centralised
-      - GRANULARITY=${GRANULARITY}
-      - LOCKTYPE=${LOCKTYPE}
-    depends_on:
-      - zoo-singapore
-    links:
-      - zoo-singapore
-    cap_add:
-      - ALL
-    container_name: locker-singapore
-    networks:
-      locknet:
-        ipv4_address: 172.20.0.17
-    ports:
-      - 4003:4003
-    command: python locker.py 
-
-  locker-capetown:
-    build:
-      context: ./locker
-      dockerfile: Dockerfile
-    volumes:
-      - "./locker:/usr/src/app"
-      - "./config/locker:/usr/config"
-    environment:
-      - WHOAMI=locker-capetown
-      - APP=${APP}
-      - PLACEMENT=centralised
-      - GRANULARITY=${GRANULARITY}
-      - LOCKTYPE=${LOCKTYPE}
-    depends_on:
-      - zoo-capetown
-    links:
-      - zoo-capetown
-    cap_add:
-      - ALL
-    container_name: locker-capetown
-    networks:
-      locknet:
-        ipv4_address: 172.20.0.18
-    ports:
-      - 4004:4004
-    command: python locker.py 
-
-  locker-newyork:
-    build:
-      context: ./locker
-      dockerfile: Dockerfile
-    volumes:
-      - "./locker:/usr/src/app"
-      - "./config/locker:/usr/config"
-    environment:
-      - WHOAMI=locker-newyork
-      - APP=${APP}
-      - PLACEMENT=centralised
-      - GRANULARITY=${GRANULARITY}
-      - LOCKTYPE=${LOCKTYPE}
-    cap_add:
-      - ALL
-    depends_on:
-      - zoo-newyork
-    links:
-      - zoo-newyork
-    container_name: locker-newyork
-    networks:
-      locknet:
-        ipv4_address: 172.20.0.19
-    ports:
-      - 4005:4005
-    command: python locker.py 
-
   paris:
     build:
       context: ./application
       dockerfile: Dockerfile
     volumes:
       - "./application:/usr/src/app"
-      - "./config/application:/usr/config"
+      - "./config:/usr/config"
     environment:
       - WHOAMI=paris
       - APP=${APP}
+      - GRANULARITY=${GRANULARITY}
+      - LOCKTYPE=${LOCKTYPE}
     depends_on:
-      - locker-paris
+      - zoo-paris
     links:
-      - locker-paris
+      - zoo-paris
     container_name: paris
     networks:
       locknet:
@@ -261,14 +128,16 @@ services:
       dockerfile: Dockerfile
     volumes:
       - "./application:/usr/src/app"
-      - "./config/application:/usr/config"
+      - "./config:/usr/config"
     environment:
       - WHOAMI=tokyo
       - APP=${APP}
+      - GRANULARITY=${GRANULARITY}
+      - LOCKTYPE=${LOCKTYPE}
     depends_on:
-      - locker-tokyo
+      - zoo-tokyo
     links:
-      - locker-tokyo
+      - zoo-tokyo
     container_name: tokyo
     networks:
       locknet:
@@ -283,14 +152,16 @@ services:
       dockerfile: Dockerfile
     volumes:
       - "./application:/usr/src/app"
-      - "./config/application:/usr/config"
+      - "./config:/usr/config"
     environment:
       - WHOAMI=singapore
       - APP=${APP}
+      - GRANULARITY=${GRANULARITY}
+      - LOCKTYPE=${LOCKTYPE}
     depends_on:
-      - locker-singapore
+      - zoo-singapore
     links:
-      - locker-singapore
+      - zoo-singapore
     container_name: singapore
     networks:
       locknet:
@@ -305,14 +176,16 @@ services:
       dockerfile: Dockerfile
     volumes:
       - "./application:/usr/src/app"
-      - "./config/application:/usr/config"
+      - "./config:/usr/config"
     environment:
       - WHOAMI=capetown
       - APP=${APP}
+      - GRANULARITY=${GRANULARITY}
+      - LOCKTYPE=${LOCKTYPE}
     depends_on:
-      - locker-capetown
+      - zoo-capetown
     links:
-      - locker-capetown
+      - zoo-capetown
     container_name: capetown
     networks:
       locknet:
@@ -327,14 +200,16 @@ services:
       dockerfile: Dockerfile
     volumes:
       - "./application:/usr/src/app"
-      - "./config/application:/usr/config"
+      - "./config:/usr/config"
     environment:
       - WHOAMI=newyork
       - APP=${APP}
+      - GRANULARITY=${GRANULARITY}
+      - LOCKTYPE=${LOCKTYPE}
     depends_on:
-      - locker-newyork
+      - zoo-newyork
     links:
-      - locker-newyork
+      - zoo-newyork
     container_name: newyork
     networks:
       locknet:

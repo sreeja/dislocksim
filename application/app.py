@@ -4,6 +4,8 @@ import time
 import requests
 import json
 from datetime import datetime
+from LockService import LockService
+from Locker import Locker
 
 
 def create_app():
@@ -12,7 +14,7 @@ def create_app():
 
 
 def get_exec_time(appname):
-    exectime_filename = os.path.join('/', 'usr', 'config', appname+'.json')
+    exectime_filename = os.path.join('/', 'usr', 'config', 'application', appname+'.json')
     with open(exectime_filename, 'r') as exectime_file:
         exectimejson = json.load(exectime_file)
 
@@ -29,57 +31,68 @@ whoami = os.environ.get("WHOAMI")
 replicas = ["paris", "tokyo", "singapore", "capetown", "newyork"]
 
 exp_app = os.environ.get("APP")
+exp_gran = os.environ.get("GRANULARITY")
+exp_type = os.environ.get("LOCKTYPE")
+
 exectime = get_exec_time(exp_app)
+
+# locking service initialization
+lock_service = LockService(whoami)
+oplocks, locktypes = lock_service.get_lock_config(exp_app, exp_gran, exp_type)
 
 
 def execute(opname, params):
-    url = "http://locker-"+whoami+":400" + \
-        str(replicas.index(whoami)+1)+"/jsonrpc"
-    print("locking rpc request to " + url, flush=True)
-    # ACQUIRE REQUIRED LOCKS
-    payload = {
-        "method": "acquire_locks",
-        "params": [opname, params],
-        "jsonrpc": "2.0",
-        "id": 0,
-    }
-    try:
-        response = requests.post(url, json=payload).json()
-    except requests.exceptions.Timeout:
-        print("Timeout while acquire", flush=True)
-        raise
-    except Exception as e:
-        print("Some other error while acquire", flush=True)
-        raise
-
-    if "error" in response:
-        print("Locks not acquired", flush=True)
-        raise
-    else:
-        print("MYAcquire ", response, flush=True)
-        print("locks acquired", flush=True)
-
-        # sleep the execution time
+    with Locker(whoami, lock_service, oplocks, locktypes, opname, params):
         time.sleep(exectime[opname] * 0.001)
 
-        # release locks
-        payload = {
-            "method": "release_locks",
-            "params": [response["result"]],
-            "jsonrpc": "2.0",
-            "id": 0,
-        }
-        try:
-            response = requests.post(url, json=payload).json()
-        except requests.exceptions.Timeout:
-            print("Timeout while release", flush=True)
-            raise
-        except Exception as e:
-            print("Some other error while release", flush=True)
-            raise
+# def execute(opname, params):
+#     url = "http://locker-"+whoami+":400" + \
+#         str(replicas.index(whoami)+1)+"/jsonrpc"
+#     print("locking rpc request to " + url, flush=True)
+#     # ACQUIRE REQUIRED LOCKS
+#     payload = {
+#         "method": "acquire_locks",
+#         "params": [opname, params],
+#         "jsonrpc": "2.0",
+#         "id": 0,
+#     }
+#     try:
+#         response = requests.post(url, json=payload).json()
+#     except requests.exceptions.Timeout:
+#         print("Timeout while acquire", flush=True)
+#         raise
+#     except Exception as e:
+#         print("Some other error while acquire", flush=True)
+#         raise
 
-        print("MYRelease ", response, flush=True)
-        print("locks released", flush=True)
+#     if "error" in response:
+#         print("Locks not acquired", flush=True)
+#         raise
+#     else:
+#         print("MYAcquire ", response, flush=True)
+#         print("locks acquired", flush=True)
+
+#         # sleep the execution time
+#         time.sleep(exectime[opname] * 0.001)
+
+#         # release locks
+#         payload = {
+#             "method": "release_locks",
+#             "params": [response["result"]],
+#             "jsonrpc": "2.0",
+#             "id": 0,
+#         }
+#         try:
+#             response = requests.post(url, json=payload).json()
+#         except requests.exceptions.Timeout:
+#             print("Timeout while release", flush=True)
+#             raise
+#         except Exception as e:
+#             print("Some other error while release", flush=True)
+#             raise
+
+#         print("MYRelease ", response, flush=True)
+#         print("locks released", flush=True)
 
 
 @flapp.route('/')
