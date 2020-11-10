@@ -45,55 +45,6 @@ def execute(opname, params):
     with Locker(whoami, lock_service, oplocks, locktypes, opname, params):
         time.sleep(exectime[opname] * 0.001)
 
-# def execute(opname, params):
-#     url = "http://locker-"+whoami+":400" + \
-#         str(replicas.index(whoami)+1)+"/jsonrpc"
-#     print("locking rpc request to " + url, flush=True)
-#     # ACQUIRE REQUIRED LOCKS
-#     payload = {
-#         "method": "acquire_locks",
-#         "params": [opname, params],
-#         "jsonrpc": "2.0",
-#         "id": 0,
-#     }
-#     try:
-#         response = requests.post(url, json=payload).json()
-#     except requests.exceptions.Timeout:
-#         print("Timeout while acquire", flush=True)
-#         raise
-#     except Exception as e:
-#         print("Some other error while acquire", flush=True)
-#         raise
-
-#     if "error" in response:
-#         print("Locks not acquired", flush=True)
-#         raise
-#     else:
-#         print("MYAcquire ", response, flush=True)
-#         print("locks acquired", flush=True)
-
-#         # sleep the execution time
-#         time.sleep(exectime[opname] * 0.001)
-
-#         # release locks
-#         payload = {
-#             "method": "release_locks",
-#             "params": [response["result"]],
-#             "jsonrpc": "2.0",
-#             "id": 0,
-#         }
-#         try:
-#             response = requests.post(url, json=payload).json()
-#         except requests.exceptions.Timeout:
-#             print("Timeout while release", flush=True)
-#             raise
-#         except Exception as e:
-#             print("Some other error while release", flush=True)
-#             raise
-
-#         print("MYRelease ", response, flush=True)
-#         print("locks released", flush=True)
-
 
 @flapp.route('/')
 def hello_world():

@@ -6,13 +6,11 @@ class Locker(object):
         self.locklist = []
         locks = self.get_lock_list(oplocks, locktypes, opname, params)
         locknames = sorted([(lock.name, lock.mode) for lock in locks])
-        # zklocks = []
         for each in locknames:
             if each[1] == "shared":
                 lock = zk.ReadLock(each[0], whoami)
             else:
                 lock = zk.WriteLock(each[0], whoami)
-            # zklocks += [lock]
             self.locklist += [lock]
         flag = False
         for each in self.locklist:
@@ -38,9 +36,6 @@ class Locker(object):
     def __exit__(self, type, value, traceback):
         print("inside release locks", flush=True)
         print(self.locklist, flush=True)
-        # zklocks = []
-        # for each in locknames:
-        #     zklocks += [self.locklist.pop(each[0]+'-'+each[1])]
         for each in self.locklist:
             done = each.release()
 
