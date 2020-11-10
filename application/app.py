@@ -33,15 +33,16 @@ exectime = get_exec_time(exp_app)
 
 
 def execute(opname, params):
-    url = "http://locker-"+whoami+":400"+str(replicas.index(whoami)+1)+"/jsonrpc" 
+    url = "http://locker-"+whoami+":400" + \
+        str(replicas.index(whoami)+1)+"/jsonrpc"
     print("locking rpc request to " + url, flush=True)
     # ACQUIRE REQUIRED LOCKS
     payload = {
-            "method": "acquire_locks",
-            "params": [opname, params],
-            "jsonrpc": "2.0",
-            "id": 0,
-        }
+        "method": "acquire_locks",
+        "params": [opname, params],
+        "jsonrpc": "2.0",
+        "id": 0,
+    }
     try:
         response = requests.post(url, json=payload).json()
     except requests.exceptions.Timeout:
@@ -90,7 +91,7 @@ def hello_world():
 
 
 @flapp.route('/do', methods=['GET', 'PUT', 'DELETE', 'POST'])
-def do_get(): 
+def do_get():
     print("CALLINGG the op..", flush=True)
     s = time.time()
     op = request.args.get('op', '')

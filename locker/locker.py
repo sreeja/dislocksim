@@ -24,7 +24,8 @@ def my_listener(state):
         if zk is not None and child_path is not None:
             try:
                 if not zk.exists(child_path):
-                    zk.create(child_path, child_value.encode('utf-8'), ephemeral=True)
+                    zk.create(child_path, child_value.encode(
+                        'utf-8'), ephemeral=True)
             except Exception as e:
                 logger.exception(e)
 
@@ -50,11 +51,13 @@ def get_zookeeper_client():
 def get_lock_config():
     oplocks = {}
     locktypes = {}
-    oplock_filename = os.path.join('/', 'usr', 'config', exp_app, 'granular' + exp_gran, 'oplock' + exp_type + '.json')
+    oplock_filename = os.path.join(
+        '/', 'usr', 'config', exp_app, 'granular' + exp_gran, 'oplock' + exp_type + '.json')
     with open(oplock_filename, 'r') as oplock_file:
         oplocks = json.load(oplock_file)
 
-    locktype_filename = os.path.join('/', 'usr', 'config', exp_app, 'granular' + exp_gran, 'locktype.json')
+    locktype_filename = os.path.join(
+        '/', 'usr', 'config', exp_app, 'granular' + exp_gran, 'locktype.json')
     with open(locktype_filename, 'r') as locktype_file:
         locktypes = json.load(locktype_file)
 
