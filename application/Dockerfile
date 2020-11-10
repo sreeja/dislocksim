@@ -1,7 +1,7 @@
 FROM python:3.8.4 as dev
 
 RUN mkdir -p /usr/src/app
-RUN mkdir -p /usr/data
+RUN mkdir -p /usr/config
 WORKDIR /usr/src/app
 
 ENV PYTHONPATH=/usr/src/app/

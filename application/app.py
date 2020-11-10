@@ -10,8 +10,8 @@ def create_app():
   return flapp
 
 def get_exec_time(appname):
-  dirname = os.path.dirname(__file__)
-  exectime_filename = os.path.join(dirname, appname+'.json')
+  # dirname = os.path.dirname(__file__)
+  exectime_filename = os.path.join('/', 'usr', 'config', appname+'.json')
   with open(exectime_filename, 'r') as exectime_file:
     # content = oplock_file.Read
     exectimejson = json.load(exectime_file)

@@ -1,5 +1,5 @@
 run:
-	sh experiment.sh
+	sh simulator.sh
 
 dockrun-cent:
 	docker-compose -f docker-compose.centralised.yml up

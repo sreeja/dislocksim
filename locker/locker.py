@@ -58,15 +58,15 @@ zk.add_listener(my_listener)
 
 locklist = {}
 
-dirname = os.path.dirname(__file__)
+# dirname = os.path.dirname(__file__)
 oplocks = {}
-oplock_filename = os.path.join(dirname, exp_app, 'granular'+exp_gran, 'oplock'+exp_type+'.json')
+oplock_filename = os.path.join('/', 'usr', 'config', exp_app, 'granular'+exp_gran, 'oplock'+exp_type+'.json')
 with open(oplock_filename, 'r') as oplock_file:
   # content = oplock_file.Read
   oplocks = json.load(oplock_file)
 
 locktypes = {}
-locktype_filename = os.path.join(dirname, exp_app, 'granular'+exp_gran, 'locktype.json')
+locktype_filename = os.path.join('/', 'usr', 'config', exp_app, 'granular'+exp_gran, 'locktype.json')
 with open(locktype_filename, 'r') as locktype_file:
   locktypes = json.load(locktype_file)
 

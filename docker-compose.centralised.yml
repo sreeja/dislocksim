@@ -29,6 +29,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - "./locker:/usr/src/app"
+      - "./config/locker:/usr/config"
     environment:
       - WHOAMI=locker-paris
       - APP=${APP}
@@ -55,6 +56,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - "./locker:/usr/src/app"
+      - "./config/locker:/usr/config"
     environment:
       - WHOAMI=locker-tokyo
       - APP=${APP}
@@ -81,6 +83,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - "./locker:/usr/src/app"
+      - "./config/locker:/usr/config"
     environment:
       - WHOAMI=locker-singapore
       - APP=${APP}
@@ -107,6 +110,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - "./locker:/usr/src/app"
+      - "./config/locker:/usr/config"
     environment:
       - WHOAMI=locker-capetown
       - APP=${APP}
@@ -133,6 +137,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - "./locker:/usr/src/app"
+      - "./config/locker:/usr/config"
     environment:
       - WHOAMI=locker-newyork
       - APP=${APP}
@@ -159,6 +164,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - "./application:/usr/src/app"
+      - "./config/application:/usr/config"
     environment:
       - WHOAMI=paris
       - APP=${APP}
@@ -180,6 +186,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - "./application:/usr/src/app"
+      - "./config/application:/usr/config"
     environment:
       - WHOAMI=tokyo
       - APP=${APP}
@@ -201,6 +208,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - "./application:/usr/src/app"
+      - "./config/application:/usr/config"
     environment:
       - WHOAMI=singapore
       - APP=${APP}
@@ -222,6 +230,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - "./application:/usr/src/app"
+      - "./config/application:/usr/config"
     environment:
       - WHOAMI=capetown
       - APP=${APP}
@@ -243,6 +252,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - "./application:/usr/src/app"
+      - "./config/application:/usr/config"
     environment:
       - WHOAMI=newyork
       - APP=${APP}
