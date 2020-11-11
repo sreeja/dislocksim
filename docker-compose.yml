@@ -114,6 +114,8 @@ services:
       - zoo-paris
     links:
       - zoo-paris
+    cap_add:
+      - ALL
     container_name: paris
     networks:
       locknet:
@@ -138,6 +140,8 @@ services:
       - zoo-tokyo
     links:
       - zoo-tokyo
+    cap_add:
+      - ALL
     container_name: tokyo
     networks:
       locknet:
@@ -162,6 +166,8 @@ services:
       - zoo-singapore
     links:
       - zoo-singapore
+    cap_add:
+      - ALL
     container_name: singapore
     networks:
       locknet:
@@ -186,6 +192,8 @@ services:
       - zoo-capetown
     links:
       - zoo-capetown
+    cap_add:
+      - ALL
     container_name: capetown
     networks:
       locknet:
@@ -210,6 +218,8 @@ services:
       - zoo-newyork
     links:
       - zoo-newyork
+    cap_add:
+      - ALL
     container_name: newyork
     networks:
       locknet:
