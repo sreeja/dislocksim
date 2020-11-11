@@ -9,7 +9,7 @@ class LockService:
         zookeeper_client = zookeeper_client = 'zoo-' + whoami + ':2181'
         zk = KazooClient(hosts=zookeeper_client)
         zk.start()
-        return zk
+        self.zk = zk
 
     def get_lock_config(self, exp_app, exp_gran, exp_type):
         oplocks = {}

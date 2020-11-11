@@ -43,7 +43,7 @@ oplocks, locktypes = lock_service.get_lock_config(exp_app, exp_gran, exp_type)
 
 
 def execute(opname, params):
-    with Locker(whoami, lock_service, oplocks, locktypes, opname, params):
+    with Locker(whoami, lock_service.zk, oplocks, locktypes, opname, params):
         time.sleep(exectime[opname] * 0.001)
 
 
