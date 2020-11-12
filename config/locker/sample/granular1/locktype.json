@@ -1,0 +1,14 @@
+[
+  {
+    "name":"operationa_operationb",
+    "params":["param"]
+  },
+  {
+    "name":"operationb_operationc",
+    "params":["param"]
+  },
+  {
+    "name":"operationc_operationd",
+    "params":["param"]
+  }
+]
