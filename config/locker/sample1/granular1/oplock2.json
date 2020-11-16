@@ -1,0 +1,20 @@
+[
+  {
+    "op":"operationa",
+    "locks":[
+      {
+        "name":"operationa_operationb",
+        "mode":"exclusive"
+      }
+    ]
+  },
+  {
+    "op":"operationb",
+    "locks":[
+      {
+        "name":"operationa_operationb",
+        "mode":"shared"
+      }
+    ]
+  }
+]
