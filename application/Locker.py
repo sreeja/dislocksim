@@ -1,9 +1,10 @@
+import time
 from Lock import LockType, Lock
-
 
 class Locker(object):
     def __init__(self, whoami, zk, oplocks, locktypes, opname, params):
         self.locklist = []
+        self.whoami = whoami
         locks = self.get_lock_list(oplocks, locktypes, opname, params)
         locknames = sorted([(lock.name, lock.mode) for lock in locks])
         for each in locknames:
@@ -15,7 +16,9 @@ class Locker(object):
         flag = False
         for each in self.locklist:
             try:
+                print('LOCKTIME ASKED: ', whoami, time.time(), flush=True)
                 done = each.acquire(timeout=10)
+                print('LOCKTIME OBTAINED: ', whoami, time.time(), flush=True)
             except Exception as e:
                 print("FAILURELOCK", str(e))
                 flag = True
@@ -37,7 +40,9 @@ class Locker(object):
         print("inside release locks", flush=True)
         print(self.locklist, flush=True)
         for each in self.locklist:
+            print('LOCKTIME RELEASING: ', self.whoami, time.time(), flush=True)
             done = each.release()
+            print('LOCKTIME RELEASED: ', self.whoami, time.time(), flush=True)
 
     def getlocks(self, opname, oplocks):
         for entry in oplocks:
