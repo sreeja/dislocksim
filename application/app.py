@@ -55,6 +55,14 @@ def hello_world():
     return f'Hello world from {whoami} , total time taken {str(duration)} \n'
 
 
+@flapp.route('/zoo')
+def zoo_test():
+    tic = datetime.now()
+    execute('createauction', {'seller': whoami})
+    duration = datetime.now() - tic
+    return f'Hello world from {whoami} , total time taken {str(duration)} \n'
+
+
 @flapp.route('/do', methods=['GET', 'PUT', 'DELETE', 'POST'])
 def do_get():
     print("CALLINGG the op..", flush=True)
