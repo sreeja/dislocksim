@@ -4,7 +4,8 @@ curl "http://localhost:6003/"
 curl "http://localhost:6004/"
 curl "http://localhost:6005/"
 
-./latency-cent.sh
+./latency.sh
+# ./latency-cent.sh
 # ./latency-clust.sh
 # ./latency-dist.sh
 

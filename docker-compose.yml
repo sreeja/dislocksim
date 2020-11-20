@@ -8,15 +8,15 @@ networks:
 
 services:
 
-  zoo-paris:
+  zoo-paris-cent:
     build:
       context: ./zookeeper
       dockerfile: Dockerfile
     restart: always
-    hostname: zoo-paris
+    hostname: zoo-paris-cent
     cap_add:
       - ALL
-    container_name: zoo-paris
+    container_name: zoo-paris-cent
     networks:
       locknet:
         ipv4_address: 172.20.0.5
@@ -24,17 +24,17 @@ services:
       - 2181:2181
     environment:
       ZOO_MY_ID: 1
-      ZOO_SERVERS: server.1=172.20.0.5:2888:3888;2181 server.2=zoo-tokyo:2889:3889;2181 server.3=zoo-singapore:2890:3890;2181 server.4=zoo-capetown:2891:3891;2181 server.5=zoo-newyork:2892:3892;2181
+      ZOO_SERVERS: server.1=172.20.0.5:2888:3888;2181 server.2=zoo-tokyo-cent:2888:3888;2181 server.3=zoo-singapore-cent:2888:3888;2181 server.4=zoo-capetown-cent:2888:3888;2181 server.5=zoo-newyork-cent:2888:3888;2181
 
-  zoo-tokyo:
+  zoo-tokyo-cent:
     build:
       context: ./zookeeper
       dockerfile: Dockerfile
     restart: always
-    hostname: zoo-tokyo
+    hostname: zoo-tokyo-cent
     cap_add:
       - ALL
-    container_name: zoo-tokyo
+    container_name: zoo-tokyo-cent
     networks:
       locknet:
         ipv4_address: 172.20.0.6
@@ -42,17 +42,17 @@ services:
       - 2182:2181
     environment:
       ZOO_MY_ID: 2
-      ZOO_SERVERS: server.1=zoo-paris:2888:3888;2181 server.2=172.20.0.6:2889:3889;2181 server.3=zoo-singapore:2890:3890;2181 server.4=zoo-capetown:2891:3891;2181 server.5=zoo-newyork:2892:3892;2181
+      ZOO_SERVERS: server.1=zoo-paris-cent:2888:3888;2181 server.2=172.20.0.6:2888:3888;2181 server.3=zoo-singapore-cent:2888:3888;2181 server.4=zoo-capetown-cent:2888:3888;2181 server.5=zoo-newyork-cent:2888:3888;2181
 
-  zoo-singapore:
+  zoo-singapore-cent:
     build:
       context: ./zookeeper
       dockerfile: Dockerfile
     restart: always
-    hostname: zoo-singapore
+    hostname: zoo-singapore-cent
     cap_add:
       - ALL
-    container_name: zoo-singapore
+    container_name: zoo-singapore-cent
     networks:
       locknet:
         ipv4_address: 172.20.0.7
@@ -60,17 +60,17 @@ services:
       - 2183:2181
     environment:
       ZOO_MY_ID: 3
-      ZOO_SERVERS: server.1=zoo-paris:2888:3888;2181 server.2=zoo-tokyo:2889:3889;2181 server.3=172.20.0.7:2890:3890;2181 server.4=zoo-capetown:2891:3891;2181 server.5=zoo-newyork:2892:3892;2181
+      ZOO_SERVERS: server.1=zoo-paris-cent:2888:3888;2181 server.2=zoo-tokyo-cent:2888:3888;2181 server.3=172.20.0.7:2888:3888;2181 server.4=zoo-capetown-cent:2888:3888;2181 server.5=zoo-newyork-cent:2888:3888;2181
 
-  zoo-capetown:
+  zoo-capetown-cent:
     build:
       context: ./zookeeper
       dockerfile: Dockerfile
     restart: always
-    hostname: zoo-capetown
+    hostname: zoo-capetown-cent
     cap_add:
       - ALL
-    container_name: zoo-capetown
+    container_name: zoo-capetown-cent
     networks:
       locknet:
         ipv4_address: 172.20.0.8
@@ -78,17 +78,17 @@ services:
       - 2184:2181
     environment:
       ZOO_MY_ID: 4
-      ZOO_SERVERS: server.1=zoo-paris:2888:3888;2181 server.2=zoo-tokyo:2889:3889;2181 server.3=zoo-singapore:2890:3890;2181 server.4=172.20.0.8:2891:3891;2181 server.5=zoo-newyork:2892:3892;2181
+      ZOO_SERVERS: server.1=zoo-paris-cent:2888:3888;2181 server.2=zoo-tokyo-cent:2888:3888;2181 server.3=zoo-singapore-cent:2888:3888;2181 server.4=172.20.0.8:2888:3888;2181 server.5=zoo-newyork-cent:2888:3888;2181
 
-  zoo-newyork:
+  zoo-newyork-cent:
     build:
       context: ./zookeeper
       dockerfile: Dockerfile
     restart: always
-    hostname: zoo-newyork
+    hostname: zoo-newyork-cent
     cap_add:
       - ALL
-    container_name: zoo-newyork
+    container_name: zoo-newyork-cent
     networks:
       locknet:
         ipv4_address: 172.20.0.9
@@ -96,7 +96,187 @@ services:
       - 2185:2181
     environment:
       ZOO_MY_ID: 5
-      ZOO_SERVERS: server.1=zoo-paris:2888:3888;2181 server.2=zoo-tokyo:2889:3889;2181 server.3=zoo-singapore:2890:3890;2181 server.4=zoo-capetown:2891:3891;2181 server.5=172.20.0.9:2892:3892;2181
+      ZOO_SERVERS: server.1=zoo-paris-cent:2888:3888;2181 server.2=zoo-tokyo-cent:2888:3888;2181 server.3=zoo-singapore-cent:2888:3888;2181 server.4=zoo-capetown-cent:2888:3888;2181 server.5=172.20.0.9:2888:3888;2181
+
+  zoo-paris-clust:
+    build:
+      context: ./zookeeper
+      dockerfile: Dockerfile
+    restart: always
+    hostname: zoo-paris-clust
+    cap_add:
+      - ALL
+    container_name: zoo-paris-clust
+    networks:
+      locknet:
+        ipv4_address: 172.20.0.15
+    ports:
+      - 2281:2181
+    environment:
+      ZOO_MY_ID: 11
+      ZOO_SERVERS: server.11=172.20.0.15:2888:3888;2181 server.12=zoo-tokyo-clust:2888:3888;2181 server.13=zoo-singapore-clust:2888:3888;2181 server.14=zoo-capetown-clust:2888:3888;2181 server.15=zoo-newyork-clust:2888:3888;2181
+
+  zoo-tokyo-clust:
+    build:
+      context: ./zookeeper
+      dockerfile: Dockerfile
+    restart: always
+    hostname: zoo-tokyo-clust
+    cap_add:
+      - ALL
+    container_name: zoo-tokyo-clust
+    networks:
+      locknet:
+        ipv4_address: 172.20.0.16
+    ports:
+      - 2282:2181
+    environment:
+      ZOO_MY_ID: 12
+      ZOO_SERVERS: server.11=zoo-paris-clust:2888:3888;2181 server.12=172.20.0.16:2888:3888;2181 server.13=zoo-singapore-clust:2888:3888;2181 server.14=zoo-capetown-clust:2888:3888;2181 server.15=zoo-newyork-clust:2888:3888;2181
+
+  zoo-singapore-clust:
+    build:
+      context: ./zookeeper
+      dockerfile: Dockerfile
+    restart: always
+    hostname: zoo-singapore-clust
+    cap_add:
+      - ALL
+    container_name: zoo-singapore-clust
+    networks:
+      locknet:
+        ipv4_address: 172.20.0.17
+    ports:
+      - 2283:2181
+    environment:
+      ZOO_MY_ID: 13
+      ZOO_SERVERS: server.11=zoo-paris-clust:2888:3888;2181 server.12=zoo-tokyo-clust:2888:3888;2181 server.13=172.20.0.17:2888:3888;2181 server.14=zoo-capetown-clust:2888:3888;2181 server.15=zoo-newyork-clust:2888:3888;2181
+
+  zoo-capetown-clust:
+    build:
+      context: ./zookeeper
+      dockerfile: Dockerfile
+    restart: always
+    hostname: zoo-capetown-clust
+    cap_add:
+      - ALL
+    container_name: zoo-capetown-clust
+    networks:
+      locknet:
+        ipv4_address: 172.20.0.18
+    ports:
+      - 2284:2181
+    environment:
+      ZOO_MY_ID: 14
+      ZOO_SERVERS: server.11=zoo-paris-clust:2888:3888;2181 server.12=zoo-tokyo-clust:2888:3888;2181 server.13=zoo-singapore-clust:2888:3888;2181 server.14=172.20.0.18:2888:3888;2181 server.15=zoo-newyork-clust:2888:3888;2181
+
+  zoo-newyork-clust:
+    build:
+      context: ./zookeeper
+      dockerfile: Dockerfile
+    restart: always
+    hostname: zoo-newyork-clust
+    cap_add:
+      - ALL
+    container_name: zoo-newyork-clust
+    networks:
+      locknet:
+        ipv4_address: 172.20.0.19
+    ports:
+      - 2285:2181
+    environment:
+      ZOO_MY_ID: 15
+      ZOO_SERVERS: server.11=zoo-paris-clust:2888:3888;2181 server.12=zoo-tokyo-clust:2888:3888;2181 server.13=zoo-singapore-clust:2888:3888;2181 server.14=zoo-capetown-clust:2888:3888;2181 server.15=172.20.0.19:2888:3888;2181
+
+  zoo-paris-dist:
+    build:
+      context: ./zookeeper
+      dockerfile: Dockerfile
+    restart: always
+    hostname: zoo-paris-dist
+    cap_add:
+      - ALL
+    container_name: zoo-paris-dist
+    networks:
+      locknet:
+        ipv4_address: 172.20.0.25
+    ports:
+      - 2381:2181
+    environment:
+      ZOO_MY_ID: 21
+      ZOO_SERVERS: server.21=172.20.0.25:2888:3888;2181 server.22=zoo-tokyo-dist:2888:3888;2181 server.23=zoo-singapore-dist:2888:3888;2181 server.24=zoo-capetown-dist:2888:3888;2181 server.25=zoo-newyork-dist:2888:3888;2181
+
+  zoo-tokyo-dist:
+    build:
+      context: ./zookeeper
+      dockerfile: Dockerfile
+    restart: always
+    hostname: zoo-tokyo-dist
+    cap_add:
+      - ALL
+    container_name: zoo-tokyo-dist
+    networks:
+      locknet:
+        ipv4_address: 172.20.0.26
+    ports:
+      - 2382:2181
+    environment:
+      ZOO_MY_ID: 22
+      ZOO_SERVERS: server.21=zoo-paris-dist:2888:3888;2181 server.22=172.20.0.26:2888:3888;2181 server.23=zoo-singapore-dist:2888:3888;2181 server.24=zoo-capetown-dist:2888:3888;2181 server.25=zoo-newyork-dist:2888:3888;2181
+
+  zoo-singapore-dist:
+    build:
+      context: ./zookeeper
+      dockerfile: Dockerfile
+    restart: always
+    hostname: zoo-singapore-dist
+    cap_add:
+      - ALL
+    container_name: zoo-singapore-dist
+    networks:
+      locknet:
+        ipv4_address: 172.20.0.27
+    ports:
+      - 2383:2181
+    environment:
+      ZOO_MY_ID: 23
+      ZOO_SERVERS: server.21=zoo-paris-dist:2888:3888;2181 server.22=zoo-tokyo-dist:2888:3888;2181 server.23=172.20.0.27:2888:3888;2181 server.24=zoo-capetown-dist:2888:3888;2181 server.25=zoo-newyork-dist:2888:3888;2181
+
+  zoo-capetown-dist:
+    build:
+      context: ./zookeeper
+      dockerfile: Dockerfile
+    restart: always
+    hostname: zoo-capetown-dist
+    cap_add:
+      - ALL
+    container_name: zoo-capetown-dist
+    networks:
+      locknet:
+        ipv4_address: 172.20.0.28
+    ports:
+      - 2384:2181
+    environment:
+      ZOO_MY_ID: 24
+      ZOO_SERVERS: server.21=zoo-paris-dist:2888:3888;2181 server.22=zoo-tokyo-dist:2888:3888;2181 server.23=zoo-singapore-dist:2888:3888;2181 server.24=172.20.0.28:2888:3888;2181 server.25=zoo-newyork-dist:2888:3888;2181
+
+  zoo-newyork-dist:
+    build:
+      context: ./zookeeper
+      dockerfile: Dockerfile
+    restart: always
+    hostname: zoo-newyork-dist
+    cap_add:
+      - ALL
+    container_name: zoo-newyork-dist
+    networks:
+      locknet:
+        ipv4_address: 172.20.0.29
+    ports:
+      - 2385:2181
+    environment:
+      ZOO_MY_ID: 25
+      ZOO_SERVERS: server.21=zoo-paris-dist:2888:3888;2181 server.22=zoo-tokyo-dist:2888:3888;2181 server.23=zoo-singapore-dist:2888:3888;2181 server.24=zoo-capetown-dist:2888:3888;2181 server.25=172.20.0.29:2888:3888;2181
 
   paris:
     build:
@@ -111,15 +291,19 @@ services:
       - GRANULARITY=${GRANULARITY}
       - LOCKTYPE=${LOCKTYPE}
     depends_on:
-      - zoo-paris
+      - zoo-paris-cent
+      - zoo-paris-clust
+      - zoo-paris-dist
     links:
-      - zoo-paris
+      - zoo-paris-cent
+      - zoo-paris-clust
+      - zoo-paris-dist
     cap_add:
       - ALL
     container_name: paris
     networks:
       locknet:
-        ipv4_address: 172.20.0.25
+        ipv4_address: 172.20.0.205
     ports:
       - 6001:6000
     command: flask run --host=0.0.0.0 --port=6000
@@ -137,15 +321,19 @@ services:
       - GRANULARITY=${GRANULARITY}
       - LOCKTYPE=${LOCKTYPE}
     depends_on:
-      - zoo-tokyo
+      - zoo-tokyo-cent
+      - zoo-tokyo-clust
+      - zoo-tokyo-dist
     links:
-      - zoo-tokyo
+      - zoo-tokyo-cent
+      - zoo-tokyo-clust
+      - zoo-tokyo-dist
     cap_add:
       - ALL
     container_name: tokyo
     networks:
       locknet:
-        ipv4_address: 172.20.0.26
+        ipv4_address: 172.20.0.206
     ports:
       - 6002:6000
     command: flask run --host=0.0.0.0 --port=6000
@@ -163,15 +351,19 @@ services:
       - GRANULARITY=${GRANULARITY}
       - LOCKTYPE=${LOCKTYPE}
     depends_on:
-      - zoo-singapore
+      - zoo-singapore-cent
+      - zoo-singapore-clust
+      - zoo-singapore-dist
     links:
-      - zoo-singapore
+      - zoo-singapore-cent
+      - zoo-singapore-clust
+      - zoo-singapore-dist
     cap_add:
       - ALL
     container_name: singapore
     networks:
       locknet:
-        ipv4_address: 172.20.0.27
+        ipv4_address: 172.20.0.207
     ports:
       - 6003:6000
     command: flask run --host=0.0.0.0 --port=6000
@@ -189,15 +381,19 @@ services:
       - GRANULARITY=${GRANULARITY}
       - LOCKTYPE=${LOCKTYPE}
     depends_on:
-      - zoo-capetown
+      - zoo-capetown-cent
+      - zoo-capetown-clust
+      - zoo-capetown-dist
     links:
-      - zoo-capetown
+      - zoo-capetown-cent
+      - zoo-capetown-clust
+      - zoo-capetown-dist
     cap_add:
       - ALL
     container_name: capetown
     networks:
       locknet:
-        ipv4_address: 172.20.0.28
+        ipv4_address: 172.20.0.208
     ports:
       - 6004:6000
     command: flask run --host=0.0.0.0 --port=6000
@@ -215,15 +411,19 @@ services:
       - GRANULARITY=${GRANULARITY}
       - LOCKTYPE=${LOCKTYPE}
     depends_on:
-      - zoo-newyork
+      - zoo-newyork-cent
+      - zoo-newyork-clust
+      - zoo-newyork-dist
     links:
-      - zoo-newyork
+      - zoo-newyork-cent
+      - zoo-newyork-clust
+      - zoo-newyork-dist
     cap_add:
       - ALL
     container_name: newyork
     networks:
       locknet:
-        ipv4_address: 172.20.0.29
+        ipv4_address: 172.20.0.209
     ports:
       - 6005:6000
     command: flask run --host=0.0.0.0 --port=6000
