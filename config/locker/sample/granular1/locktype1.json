@@ -1,0 +1,17 @@
+[
+  {
+    "name":"operationa_operationb",
+    "params":["param"],
+    "placement":"cent"
+  },
+  {
+    "name":"operationb_operationc",
+    "params":["param"],
+    "placement":"cent"
+  },
+  {
+    "name":"operationc_operationd",
+    "params":["param"],
+    "placement":"cent"
+  }
+]

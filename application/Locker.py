@@ -2,16 +2,17 @@ import time
 from Lock import LockType, Lock
 
 class Locker(object):
-    def __init__(self, whoami, zk, oplocks, locktypes, opname, params):
+    def __init__(self, whoami, zks, oplocks, locktypes, opname, params):
         self.locklist = []
         self.whoami = whoami
+        placement = ['cent', 'clust', 'dist']
         locks = self.get_lock_list(oplocks, locktypes, opname, params)
-        locknames = sorted([(lock.name, lock.mode) for lock in locks])
+        locknames = sorted([(lock.name, lock.mode, lock.locktype.placement) for lock in locks])
         for each in locknames:
             if each[1] == "shared":
-                lock = zk.ReadLock(each[0], whoami)
+                lock = zks[placement.index(each[2])].ReadLock(each[0], whoami)
             else:
-                lock = zk.WriteLock(each[0], whoami)
+                lock = zks[placement.index(each[2])].WriteLock(each[0], whoami)
             self.locklist += [lock]
         flag = False
         for each in self.locklist:
@@ -61,7 +62,7 @@ class Locker(object):
                     for p in t["params"]:
                         paramValues += [params[p]]
                     lockname = "_".join([t["name"]] + paramValues)
-                    locktype = LockType(t["name"], t["params"])
+                    locktype = LockType(t["name"], t["params"], t["placement"])
                     newlock = Lock(lockname, locktype, r["mode"])
                     locks += [newlock]
         return locks

@@ -290,6 +290,7 @@ services:
       - APP=${APP}
       - GRANULARITY=${GRANULARITY}
       - LOCKTYPE=${LOCKTYPE}
+      - PLACEMENT=${PLACEMENT}
     depends_on:
       - zoo-paris-cent
       - zoo-paris-clust
@@ -320,6 +321,7 @@ services:
       - APP=${APP}
       - GRANULARITY=${GRANULARITY}
       - LOCKTYPE=${LOCKTYPE}
+      - PLACEMENT=${PLACEMENT}
     depends_on:
       - zoo-tokyo-cent
       - zoo-tokyo-clust
@@ -350,6 +352,7 @@ services:
       - APP=${APP}
       - GRANULARITY=${GRANULARITY}
       - LOCKTYPE=${LOCKTYPE}
+      - PLACEMENT=${PLACEMENT}
     depends_on:
       - zoo-singapore-cent
       - zoo-singapore-clust
@@ -380,6 +383,7 @@ services:
       - APP=${APP}
       - GRANULARITY=${GRANULARITY}
       - LOCKTYPE=${LOCKTYPE}
+      - PLACEMENT=${PLACEMENT}
     depends_on:
       - zoo-capetown-cent
       - zoo-capetown-clust
@@ -410,6 +414,7 @@ services:
       - APP=${APP}
       - GRANULARITY=${GRANULARITY}
       - LOCKTYPE=${LOCKTYPE}
+      - PLACEMENT=${PLACEMENT}
     depends_on:
       - zoo-newyork-cent
       - zoo-newyork-clust

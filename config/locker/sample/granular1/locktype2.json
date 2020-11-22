@@ -1,0 +1,17 @@
+[
+  {
+    "name":"operationa_operationb",
+    "params":["param"],
+    "placement":"clust"
+  },
+  {
+    "name":"operationb_operationc",
+    "params":["param"],
+    "placement":"clust"
+  },
+  {
+    "name":"operationc_operationd",
+    "params":["param"],
+    "placement":"clust"
+  }
+]

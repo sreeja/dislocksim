@@ -1,0 +1,17 @@
+[
+  {
+    "name":"operationa_operationb",
+    "params":["param"],
+    "placement":"dist"
+  },
+  {
+    "name":"operationb_operationc",
+    "params":["param"],
+    "placement":"dist"
+  },
+  {
+    "name":"operationc_operationd",
+    "params":["param"],
+    "placement":"dist"
+  }
+]

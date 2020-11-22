@@ -1,7 +1,8 @@
 class LockType:
-    def __init__(self, name, params):
+    def __init__(self, name, params, placement):
         self.name = name
         self.params = params
+        self.placement = placement
 
 
 class Lock:

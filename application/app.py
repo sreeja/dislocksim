@@ -34,23 +34,24 @@ replicas = ["paris", "tokyo", "singapore", "capetown", "newyork"]
 exp_app = os.environ.get("APP")
 exp_gran = os.environ.get("GRANULARITY")
 exp_type = os.environ.get("LOCKTYPE")
+exp_place = os.environ.get("PLACEMENT")
 
 exectime = get_exec_time(exp_app)
 
 # locking service initialization
 lock_service = LockService(whoami)
-oplocks, locktypes = lock_service.get_lock_config(exp_app, exp_gran, exp_type)
+oplocks, locktypes = lock_service.get_lock_config(exp_app, exp_gran, exp_type, exp_place)
 
 
 def execute(opname, params):
-    with Locker(whoami, lock_service.zk, oplocks, locktypes, opname, params):
+    with Locker(whoami, lock_service.zks, oplocks, locktypes, opname, params):
         time.sleep(exectime[opname] * 0.001)
 
 
 @flapp.route('/')
 def hello_world():
     tic = datetime.now()
-    execute('createauction', {'seller': 's12'})
+    execute('operationa', {'param': 'p12'})
     duration = datetime.now() - tic
     return f'Hello world from {whoami} , total time taken {str(duration)} \n'
 
@@ -58,7 +59,7 @@ def hello_world():
 @flapp.route('/zoo')
 def zoo_test():
     tic = datetime.now()
-    execute('createauction', {'seller': whoami})
+    execute('operationa', {'param': whoami})
     duration = datetime.now() - tic
     return f'Hello world from {whoami} , total time taken {str(duration)} \n'
 
