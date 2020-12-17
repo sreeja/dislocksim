@@ -58,11 +58,9 @@ class Locker(object):
         for r in requiredLocks:
             for t in locktypes:
                 if r["name"] == t["name"]:
-                    paramValues = []
-                    for p in t["params"]:
-                        paramValues += [params[p]]
+                    paramValues = [params[t["param"]]]
                     lockname = "_".join([t["name"]] + paramValues)
-                    locktype = LockType(t["name"], t["params"], t["placement"])
+                    locktype = LockType(t["name"], t["param"], t["placement"])
                     newlock = Lock(lockname, locktype, r["mode"])
                     locks += [newlock]
         return locks
