@@ -1,0 +1,1 @@
+[{"op": "operationb", "locks": [{"name": "operationa_operationb", "mode": "shared"}, {"name": "operationb_operationc", "mode": "exclusive"}]}, {"op": "operationa", "locks": [{"name": "operationa_operationb", "mode": "exclusive"}]}, {"op": "operationc", "locks": [{"name": "operationb_operationc", "mode": "shared"}]}]

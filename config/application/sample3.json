@@ -1,0 +1,14 @@
+[
+    {
+        "name":"operationa",
+        "time":0.5
+    },
+    {
+        "name":"operationb",
+        "time":1.2
+    },
+    {
+        "name":"operationc",
+        "time":0.7
+    }
+]
