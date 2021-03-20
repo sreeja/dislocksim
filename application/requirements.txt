@@ -4,7 +4,7 @@ click==7.1.2
 Flask==1.1.2
 idna==2.10
 itsdangerous==1.1.0
-Jinja2==2.11.2
+Jinja2==2.11.3
 json-rpc==1.13.0
 kazoo==2.8.0
 MarkupSafe==1.1.1
